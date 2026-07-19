@@ -20,7 +20,6 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         body { background-color: #FAFAFA; color: #1A1A1A; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
 
-        /* Top Government Style Header */
         .gov-banner {
             background: var(--pac-navy);
             color: #FFF;
@@ -33,7 +32,6 @@
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Institutional Main Header */
         .pac-header {
             background: #FFF;
             border-bottom: 4px solid var(--pac-orange);
@@ -66,7 +64,6 @@
             font-weight: 700;
         }
 
-        /* Live Announcement Marquee Bar */
         .ticker-wrap {
             width: 100%;
             background: #FFF4E5;
@@ -88,7 +85,6 @@
             100% { transform: translate3d(-100%, 0, 0); }
         }
 
-        /* Cinematic Cyber Security Background Video Wrapper */
         .video-bg-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -109,7 +105,6 @@
             pointer-events: none;
         }
 
-        /* Centralized Component Core Container */
         .portal-main {
             flex: 1;
             width: 100%;
@@ -120,7 +115,6 @@
             z-index: 2;
         }
 
-        /* Split Screen for Login + Notice Board */
         .gateway-split {
             display: grid;
             grid-template-columns: 1.2fr 1.8fr;
@@ -131,7 +125,6 @@
             .gateway-split { grid-template-columns: 1fr; }
         }
 
-        /* Structural Framework Modules */
         .pac-card {
             background: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(8px);
@@ -154,7 +147,6 @@
             align-items: center;
         }
 
-        /* Notices / Announcement Feeds UI */
         .notice-board-body { padding: 20px; max-height: 450px; overflow-y: auto; }
         .notice-item {
             padding: 14px;
@@ -167,7 +159,6 @@
         .notice-date { font-size: 0.75rem; color: #64748B; font-weight: bold; margin-bottom: 4px; }
         .notice-text { font-size: 0.9rem; font-weight: 600; color: #334155; line-height: 1.4; }
 
-        /* Login Fields Core Architecture */
         .input-group { margin-bottom: 18px; padding: 0 20px; }
         .input-group:first-of-type { margin-top: 25px; }
         .input-group label { display: block; margin-bottom: 6px; font-size: 0.8rem; font-weight: 700; color: #475569; text-transform: uppercase; }
@@ -192,7 +183,6 @@
         }
         .btn-action-core:hover { background: #D66F11; }
 
-        /* Form switcher style */
         .form-switch-prompt {
             text-align: center;
             font-size: 0.85rem;
@@ -206,7 +196,6 @@
             text-decoration: underline;
         }
 
-        /* Active Test Engine Mode Layout */
         .exam-layout-split {
             display: grid;
             grid-template-columns: 3.2fr 1fr;
@@ -216,7 +205,6 @@
             .exam-layout-split { grid-template-columns: 1fr; }
         }
 
-        /* Persistent Countdown Floating Element */
         .timer-box {
             background: #FFF1F2;
             border: 1px solid #FECDD3;
@@ -253,12 +241,10 @@
         .option-node-row:hover { background: #F8FAFC; border-color: var(--pac-blue); }
         .option-node-row input { margin-right: 14px; width: 18px; height: 18px; accent-color: var(--pac-blue); }
 
-        /* Sidebar Configurations */
         .sidebar-panel { background: var(--pac-light); border: 1px solid var(--border-color); border-radius: 6px; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
         .candidate-meta-card { display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
         .profile-avatar { width: 48px; height: 48px; background: #E2E8F0; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #475569; }
 
-        /* Statistical Report Sheet Framework */
         .transcript-metrics-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -298,7 +284,6 @@
         .item-transcript-details { padding: 18px; background: #FFF; font-size: 0.95rem; display: flex; flex-direction: column; gap: 8px; }
         .pill-badge { padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; color: #FFF; font-weight: bold; }
 
-        /* Control Room Logs */
         .table-view-container { overflow-x: auto; margin-top: 15px; border: 1px solid var(--border-color); border-radius: 6px; }
         table { width: 100%; border-collapse: collapse; background: #FFF; }
         th, td { padding: 14px 18px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; }
@@ -310,13 +295,11 @@
 </head>
 <body>
 
-    <!-- Top Branding Strip -->
     <div class="gov-banner">
         <div>PRIKSHA'S ASSESSMENT CELL • CENTRAL SECURITY WORKSPACE</div>
         <div>परीक्षा असाइनमेंट cell (PAC)</div>
     </div>
 
-    <!-- Main Header -->
     <header class="pac-header">
         <div class="header-brand">
             <h1>PRIKSHA'S ASSESSMENT CELL</h1>
@@ -325,14 +308,12 @@
         <div class="system-badge">PAC SECURE ENGINE V2.6</div>
     </header>
 
-    <!-- Live Announcement Ticker Bar -->
     <div class="ticker-wrap">
         <div class="ticker-content">
             ⚠️ IMPORTANT NOTICE: All active exam links are governed under strict multi-layered proctoring parameters. • Candidates must ensure stable connectivity before finalizing logs. • Any tab change or window manipulation logs an infraction automatically to the PAC database center.
         </div>
     </div>
 
-    <!-- Video Background Container -->
     <div id="videoContainer" class="video-bg-container">
         <iframe src="https://www.youtube.com/embed/FsIenS7u9N4?autoplay=1&mute=1&loop=1&playlist=FsIenS7u9N4&controls=0&showinfo=0&rel=0&modestbranding=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>
     </div>
@@ -474,15 +455,61 @@
         let isRegisterMode = false;
         let timeRemainingSeconds = 600; 
         let dynamicTimerTicker = null;
+        let activeRuntimeQuestions = []; 
 
-        // 1. Static Custom Array Config Database Simulation
-        const globalQuestions = [
-            { id: "q1", question: "What does HTML stand for?", options: ["Hyper Text Markup Language", "High Text Machine Language", "Hyper Tabular Multi Language"], answer: "Hyper Text Markup Language" },
-            { id: "q2", question: "Which core technology provides architectural layouts and cinematic configurations natively?", options: ["CSS Engine Layers", "Node Cluster Pools", "Markdown Specs"], answer: "CSS Engine Layers" },
-            { id: "q3", question: "Which database system relies natively on Mongoose ODM frameworks?", options: ["MySQL Engine", "Postgres Core", "MongoDB Clusters"], answer: "MongoDB Clusters" }
-        ];
+        // Fisher-Yates Array Shuffle Logic
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            let newArray = [...array];
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [newArray[currentIndex], newArray[randomIndex]] = [newArray[randomIndex], newArray[currentIndex]];
+            }
+            return newArray;
+        }
 
-        // Safe Memory Helpers to simulate Mongoose Collections
+        // DYNAMIC ALGORITHMIC VARIABLE QUESTION GENERATOR
+        function generateDynamicNumericalQuestions() {
+            // Q1: MATHEMATICS (Area Under Curve Definite Integration)
+            const valA1 = Math.floor(Math.random() * 4) + 2; // Slope function coefficient
+            const valB1 = Math.floor(Math.random() * 3) + 2; // Upper integration limit limit
+            const ans1 = 0.5 * valA1 * (valB1 * valB1); // Area under linear line formula
+
+            // Q2: PHYSICS (Kinematics Kinetic Energy Evaluation)
+            const valA2 = Math.floor(Math.random() * 6) + 2; // Particle active mass in kg
+            const valB2 = Math.floor(Math.random() * 5) + 3; // Particle velocity in m/s
+            const ans2 = 0.5 * valA2 * (valB2 * valB2); // Standard E = 0.5 * m * v^2
+
+            // Q3: CHEMISTRY (Standard Mass Volume Density Matrix)
+            const valA3 = Math.floor(Math.random() * 50) + 20; // Reagent Matrix Mass in grams
+            const valB3 = Math.floor(Math.random() * 5) + 4;  // localized cube volume space in mL
+            const ans3 = parseFloat((valA3 / valB3).toFixed(2)); // Target Density score calculation
+
+            const templates = [
+                {
+                    id: "dyn_q1",
+                    question: `Evaluate the total definite surface area enclosed under the curve function f(x) = ${valA1}x bounded on the horizontal axis from interval limit x = 0 to x = ${valB1} units. (Apply standard definite integration mechanics).`,
+                    options: shuffle([`${ans1} sq. units`, `${ans1 + 2.5} sq. units`, `${ans1 - 1.5} sq. units`, `${ans1 * 2} sq. units`]),
+                    answer: `${ans1} sq. units`
+                },
+                {
+                    id: "dyn_q2",
+                    question: `A physical particle tracking payload configuration has an active structural mass of exactly ${valA2} kg and propagates down a vector plane with a velocity magnitude of ${valB2} m/s. Compute the total kinetic energy capacity footprint.`,
+                    options: shuffle([`${ans2} Joules`, `${ans2 + 10} Joules`, `${ans2 - 4} Joules`, `${ans2 * 2} Joules`]),
+                    answer: `${ans2} Joules`
+                },
+                {
+                    id: "dyn_q3",
+                    question: `A standardized chemical matrix reagent compound mass is scaled at exactly ${valA3} grams. If it takes up an exact localized test cube space volume of ${valB3} mL, evaluate its target density footprint score.`,
+                    options: shuffle([`${ans3} g/mL`, `${(ans3 + 1.15).toFixed(2)} g/mL`, `${(ans3 - 0.75).toFixed(2)} g/mL`, `${(ans3 * 1.5).toFixed(2)} g/mL`]),
+                    answer: `${ans3} g/mL`
+                }
+            ];
+
+            return shuffle(templates);
+        }
+
         function getLocalUsers() {
             const users = localStorage.getItem('pac_mock_users');
             return users ? JSON.parse(users) : [];
@@ -492,7 +519,6 @@
             localStorage.setItem('pac_mock_users', JSON.stringify(usersArray));
         }
 
-        // 2. Control Console Room Hotkey (Ctrl + Shift + A)
         window.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'A') {
                 const btn = document.getElementById('adminToggleBtn');
@@ -500,7 +526,6 @@
             }
         });
 
-        // 3. Tab Switch Tracker (Logs infractions inside memory array)
         window.addEventListener('blur', () => {
             if (examActive && sessionUser !== "") {
                 let users = getLocalUsers();
@@ -532,7 +557,6 @@
             }
         }
 
-        // 4. Local Self-Service Registration Core
         function executeRegistration() {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
@@ -563,7 +587,6 @@
             activateCbtEngineWindow();
         }
 
-        // 5. Authentication Gate logic
         function executeAuthentication() {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
@@ -584,7 +607,6 @@
             }
         }
 
-        // 6. Test Canvas Loader
         function activateCbtEngineWindow() {
             document.getElementById('loginSection').classList.add('hidden');
             document.getElementById('videoContainer').classList.add('hidden'); 
@@ -594,14 +616,16 @@
 
             startCountdownEngine();
 
+            activeRuntimeQuestions = generateDynamicNumericalQuestions();
+
             const targetContainer = document.getElementById('questionsContainer');
             targetContainer.innerHTML = "";
 
-            globalQuestions.forEach((q, idx) => {
+            activeRuntimeQuestions.forEach((q, idx) => {
                 const block = document.createElement('div');
                 block.className = "question-stream-card";
                 block.innerHTML = `
-                    <div class="q-meta-title">Question Reference Item. ${idx + 1}</div>
+                    <div class="q-meta-title">Dynamic Numerical Reference Item. ${idx + 1}</div>
                     <p style="font-size: 1.05rem; font-weight: 600; margin-bottom: 16px; color:#334155;">${q.question}</p>
                     ${q.options.map(opt => `
                         <label class="option-node-row">
@@ -634,7 +658,6 @@
                 `${runningMinutes.toString().padStart(2, '0')}:${runningSeconds.toString().padStart(2, '0')}`;
         }
 
-        // 7. Response Sheet Scoring Logic
         function executeFinalTestSubmission() {
             clearInterval(dynamicTimerTicker);
             examActive = false;
@@ -648,7 +671,7 @@
             });
 
             let calculatedScore = 0;
-            globalQuestions.forEach(q => {
+            activeRuntimeQuestions.forEach(q => {
                 if (answerMappingPayload[q.id] === q.answer) {
                     calculatedScore++;
                 }
@@ -669,7 +692,7 @@
             document.getElementById('examSection').classList.add('hidden');
             document.getElementById('resultSection').classList.remove('hidden');
 
-            const databaseQuestionCount = globalQuestions.length;
+            const databaseQuestionCount = activeRuntimeQuestions.length;
             const varianceIncorrectCount = databaseQuestionCount - finalScoreCount;
             const computationAccuracyRate = databaseQuestionCount > 0 ? Math.round((finalScoreCount / databaseQuestionCount) * 100) : 0;
 
@@ -681,67 +704,68 @@
             const deploymentContainer = document.getElementById('detailedTranscriptContainer');
             deploymentContainer.innerHTML = "";
 
-            globalQuestions.forEach((q, idx) => {
+            activeRuntimeQuestions.forEach((q, idx) => {
                 const historicalCandidatePick = historicalSelections[q.id] || "Not Attempted";
                 const absoluteValidationState = historicalCandidatePick === q.answer;
 
                 const wrapperNode = document.createElement('div');
                 wrapperNode.className = "item-transcript-box";
                 wrapperNode.style.borderLeft = `5px solid ${absoluteValidationState ? 'var(--success-green)' : 'var(--danger-red)'}`;
-
                 wrapperNode.innerHTML = `
                     <div class="item-transcript-header">
-                        <div>Question System Identifier Segment No. ${idx + 1}</div>
-                        <span class="pill-badge" style="background: ${absoluteValidationState ? 'var(--success-green)' : 'var(--danger-red)'}">
-                            ${absoluteValidationState ? '✓ CORRECT MATCH' : '✗ INCORRECT RESPONSE'}
+                        <div>Question ${idx + 1}</div>
+                        <span class="pill-badge" style="background: ${absoluteValidationState ? 'var(--success-green)' : 'var(--danger-red)'};">
+                            ${absoluteValidationState ? 'CORRECT' : 'INCORRECT'}
                         </span>
                     </div>
                     <div class="item-transcript-details">
-                        <div style="font-weight: 700; font-size: 1.05rem; color: var(--pac-navy);">${q.question}</div>
-                        <div style="margin-top: 4px;">• Tracked Student Choice: <span style="font-weight: 700; color: ${absoluteValidationState ? 'var(--success-green)' : 'var(--danger-red)'};">${historicalCandidatePick}</span></div>
-                        <div>• System Verification Matrix Standard Key: <span style="font-weight: 700; color: var(--success-green);">${q.answer}</span></div>
+                        <p style="color: #334155; font-weight: 600;">${q.question}</p>
+                        <div style="font-size: 0.85rem; margin-top: 5px;">
+                            <span style="color: #64748B; font-weight: bold;">Selected Option:</span> 
+                            <span style="color: ${absoluteValidationState ? 'var(--success-green)' : 'var(--danger-red)'}; font-weight: 700;">${historicalCandidatePick}</span>
+                        </div>
+                        <div style="font-size: 0.85rem;">
+                            <span style="color: #64748B; font-weight: bold;">Valid Resolution Baseline:</span> 
+                            <span style="color: var(--success-green); font-weight: 700;">${q.answer}</span>
+                        </div>
                     </div>
                 `;
                 deploymentContainer.appendChild(wrapperNode);
             });
         }
 
-        // 8. Command Room Table Renderer
         function switchToAdminPanel() {
             document.getElementById('loginSection').classList.add('hidden');
-            document.getElementById('videoContainer').classList.add('hidden');
             document.getElementById('examSection').classList.add('hidden');
             document.getElementById('resultSection').classList.add('hidden');
+            document.getElementById('videoContainer').classList.add('hidden');
             document.getElementById('consoleSection').classList.remove('hidden');
             syncServerMetricsData();
         }
 
         function syncServerMetricsData() {
-            const dataRowCollection = getLocalUsers();
-            const gridBodyElement = document.getElementById('adminTableContent');
-            gridBodyElement.innerHTML = "";
-
-            if (dataRowCollection.length === 0) {
-                gridBodyElement.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#64748B;">No local candidates registered yet.</td></tr>`;
+            const tableBody = document.getElementById('adminTableContent');
+            tableBody.innerHTML = "";
+            
+            let users = getLocalUsers();
+            if(users.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#64748B; font-weight:600;">No local session records discovered.</td></tr>`;
                 return;
             }
 
-            dataRowCollection.forEach(row => {
-                const logicalTableElementRow = document.createElement('tr');
-                const currentScore = row.score !== undefined ? row.score : 0;
-                const activeAnomalies = row.tabSwitches !== undefined ? row.tabSwitches : 0;
-                
-                logicalTableElementRow.innerHTML = `
-                    <td><strong>${row.username}</strong></td>
-                    <td style="color: ${row.submitted ? 'var(--success-green)' : 'var(--pac-orange)'}; font-weight: bold;">
-                        ${row.submitted ? 'COMMITTED TO CLUSTER' : 'ACTIVE LIVE RUNTIME'}
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td style="font-weight:700; color:var(--pac-navy);">${user.username.toUpperCase()}</td>
+                    <td>
+                        <span class="pill-badge" style="background: ${user.submitted ? 'var(--success-green)' : 'var(--warning-amber)'};">
+                            ${user.submitted ? 'TERMINATED SUBMITTED' : 'SESSION ACTIVE'}
+                        </span>
                     </td>
-                    <td><span style="background: #F1F5F9; padding:4px 8px; border-radius:4px; font-weight:bold;">${currentScore} / ${globalQuestions.length}</span></td>
-                    <td style="color: ${activeAnomalies > 0 ? 'var(--danger-red)' : 'var(--success-green)'}; font-weight: bold;">
-                        ⚠️ ${activeAnomalies} INFRACTIONS DETECTED
-                    </td>
+                    <td style="font-weight:700;">${user.submitted ? user.score + " Marks" : "N/A"}</td>
+                    <td style="font-weight:700; color: ${user.tabSwitches > 0 ? 'var(--danger-red)' : '#1A1A1A'};">${user.tabSwitches || 0} Anomaly Flags</td>
                 `;
-                gridBodyElement.appendChild(logicalTableElementRow);
+                tableBody.appendChild(row);
             });
         }
     </script>
