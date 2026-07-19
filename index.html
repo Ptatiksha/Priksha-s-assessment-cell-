@@ -357,7 +357,7 @@
                 <button id="authPrimaryBtn" class="btn-action-core" onclick="executeAuthentication()">Authenticate & Init Session</button>
                 
                 <div id="formSwitchPrompt" class="form-switch-prompt">
-                    New Candidate? <span onclick="toggleAuthMode(true)">Register System Roll ID</span>
+                    New Candidate? <span style="color:var(--pac-blue); cursor:pointer; text-decoration:underline;" onclick="toggleAuthMode(true)">Register System Roll ID</span>
                 </div>
             </div>
 
@@ -472,10 +472,27 @@
         let sessionUser = "";
         let examActive = false;
         let isRegisterMode = false;
-        let globalQuestions = [];
         let timeRemainingSeconds = 600; 
         let dynamicTimerTicker = null;
 
+        // 1. Static Custom Array Config Database Simulation
+        const globalQuestions = [
+            { id: "q1", question: "What does HTML stand for?", options: ["Hyper Text Markup Language", "High Text Machine Language", "Hyper Tabular Multi Language"], answer: "Hyper Text Markup Language" },
+            { id: "q2", question: "Which core technology provides architectural layouts and cinematic configurations natively?", options: ["CSS Engine Layers", "Node Cluster Pools", "Markdown Specs"], answer: "CSS Engine Layers" },
+            { id: "q3", question: "Which database system relies natively on Mongoose ODM frameworks?", options: ["MySQL Engine", "Postgres Core", "MongoDB Clusters"], answer: "MongoDB Clusters" }
+        ];
+
+        // Safe Memory Helpers to simulate Mongoose Collections
+        function getLocalUsers() {
+            const users = localStorage.getItem('pac_mock_users');
+            return users ? JSON.parse(users) : [];
+        }
+
+        function saveLocalUsers(usersArray) {
+            localStorage.setItem('pac_mock_users', JSON.stringify(usersArray));
+        }
+
+        // 2. Control Console Room Hotkey (Ctrl + Shift + A)
         window.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'A') {
                 const btn = document.getElementById('adminToggleBtn');
@@ -483,13 +500,15 @@
             }
         });
 
+        // 3. Tab Switch Tracker (Logs infractions inside memory array)
         window.addEventListener('blur', () => {
             if (examActive && sessionUser !== "") {
-                fetch('/api/anomaly', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username: sessionUser })
-                });
+                let users = getLocalUsers();
+                let userIndex = users.findIndex(u => u.username.toLowerCase() === sessionUser.toLowerCase());
+                if (userIndex !== -1) {
+                    users[userIndex].tabSwitches = (users[userIndex].tabSwitches || 0) + 1;
+                    saveLocalUsers(users);
+                }
                 alert('⚠️ SECURE ENGINE WARNING: Cross-window tab manipulation event transmitted to server infrastructure logs.');
             }
         });
@@ -504,16 +523,17 @@
                 title.innerText = "Candidate Registration Hub";
                 primaryBtn.innerText = "Register & Create Account";
                 primaryBtn.setAttribute("onclick", "executeRegistration()");
-                switchPrompt.innerHTML = `Already Registered? <span onclick="toggleAuthMode(false)">Back to System Login</span>`;
+                switchPrompt.innerHTML = `Already Registered? <span style="color:var(--pac-blue); cursor:pointer; text-decoration:underline;" onclick="toggleAuthMode(false)">Back to System Login</span>`;
             } else {
                 title.innerText = "Candidate Login Gateway";
                 primaryBtn.innerText = "Authenticate & Init Session";
                 primaryBtn.setAttribute("onclick", "executeAuthentication()");
-                switchPrompt.innerHTML = `New Candidate? <span onclick="toggleAuthMode(true)">Register System Roll ID</span>`;
+                switchPrompt.innerHTML = `New Candidate? <span style="color:var(--pac-blue); cursor:pointer; text-decoration:underline;" onclick="toggleAuthMode(true)">Register System Roll ID</span>`;
             }
         }
 
-        async function executeRegistration() {
+        // 4. Local Self-Service Registration Core
+        function executeRegistration() {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
 
@@ -522,45 +542,50 @@
                 return;
             }
 
-            try {
-                const res = await fetch('/api/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
-                const payload = await res.json();
+            let users = getLocalUsers();
+            let exists = users.some(u => u.username.toLowerCase() === username.toLowerCase());
 
-                if (res.status === 201 || res.status === 200) {
-                    sessionUser = username;
-                    activateCbtEngineWindow();
-                } else {
-                    alert(payload.message || "Registration Failed.");
-                }
-            } catch (err) {
-                alert("Database cluster offline or network error.");
+            if (exists) {
+                alert("⚠️ Error: Candidate Roll ID already exists inside local registers.");
+                return;
             }
+
+            users.push({
+                username: username,
+                password: password,
+                submitted: false,
+                score: 0,
+                tabSwitches: 0
+            });
+            saveLocalUsers(users);
+
+            sessionUser = username;
+            activateCbtEngineWindow();
         }
 
-        async function executeAuthentication() {
+        // 5. Authentication Gate logic
+        function executeAuthentication() {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
 
-            const res = await fetch('/api/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password })
-            });
-            const payload = await res.json();
+            if(!username || !password) {
+                alert("⚠️ Validation Failure: Fields cannot be empty.");
+                return;
+            }
 
-            if (res.status === 200) {
+            let users = getLocalUsers();
+            let targetUser = users.find(u => u.username.toLowerCase() === username.toLowerCase() && u.password === password);
+
+            if (targetUser) {
                 sessionUser = username;
                 activateCbtEngineWindow();
             } else {
-                alert(payload.message);
+                alert("⚠️ Authentication Failure: Invalid Credentials or Unregistered System Roll ID.");
             }
         }
 
-        async function activateCbtEngineWindow() {
+        // 6. Test Canvas Loader
+        function activateCbtEngineWindow() {
             document.getElementById('loginSection').classList.add('hidden');
             document.getElementById('videoContainer').classList.add('hidden'); 
             document.getElementById('examSection').classList.remove('hidden');
@@ -569,8 +594,6 @@
 
             startCountdownEngine();
 
-            const res = await fetch('/api/questions');
-            globalQuestions = await res.json();
             const targetContainer = document.getElementById('questionsContainer');
             targetContainer.innerHTML = "";
 
@@ -611,7 +634,8 @@
                 `${runningMinutes.toString().padStart(2, '0')}:${runningSeconds.toString().padStart(2, '0')}`;
         }
 
-        async function executeFinalTestSubmission() {
+        // 7. Response Sheet Scoring Logic
+        function executeFinalTestSubmission() {
             clearInterval(dynamicTimerTicker);
             examActive = false;
             
@@ -623,14 +647,22 @@
                 answerMappingPayload[targetKey] = element.value;
             });
 
-            const res = await fetch('/api/submit', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: sessionUser, answers: answerMappingPayload })
+            let calculatedScore = 0;
+            globalQuestions.forEach(q => {
+                if (answerMappingPayload[q.id] === q.answer) {
+                    calculatedScore++;
+                }
             });
-            const data = await res.json();
 
-            generateEvaluationReportTranscript(data.score, answerMappingPayload);
+            let users = getLocalUsers();
+            let userIndex = users.findIndex(u => u.username.toLowerCase() === sessionUser.toLowerCase());
+            if (userIndex !== -1) {
+                users[userIndex].submitted = true;
+                users[userIndex].score = calculatedScore;
+                saveLocalUsers(users);
+            }
+
+            generateEvaluationReportTranscript(calculatedScore, answerMappingPayload);
         }
 
         function generateEvaluationReportTranscript(finalScoreCount, historicalSelections) {
@@ -674,6 +706,7 @@
             });
         }
 
+        // 8. Command Room Table Renderer
         function switchToAdminPanel() {
             document.getElementById('loginSection').classList.add('hidden');
             document.getElementById('videoContainer').classList.add('hidden');
@@ -683,27 +716,29 @@
             syncServerMetricsData();
         }
 
-        async function syncServerMetricsData() {
-            const res = await fetch('/api/admin/metrics');
-            const dataRowCollection = await res.json();
+        function syncServerMetricsData() {
+            const dataRowCollection = getLocalUsers();
             const gridBodyElement = document.getElementById('adminTableContent');
             gridBodyElement.innerHTML = "";
 
+            if (dataRowCollection.length === 0) {
+                gridBodyElement.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#64748B;">No local candidates registered yet.</td></tr>`;
+                return;
+            }
+
             dataRowCollection.forEach(row => {
                 const logicalTableElementRow = document.createElement('tr');
-                
-                // Direct Object mapping validation fallbacks to protect layout structures
                 const currentScore = row.score !== undefined ? row.score : 0;
-                const activeAnomalies = row.anomalies !== undefined ? row.anomalies : (row.tabSwitches !== undefined ? row.tabSwitches : 0);
+                const activeAnomalies = row.tabSwitches !== undefined ? row.tabSwitches : 0;
                 
                 logicalTableElementRow.innerHTML = `
-                    <td><strong>${row.studentId || row.username}</strong></td>
+                    <td><strong>${row.username}</strong></td>
                     <td style="color: ${row.submitted ? 'var(--success-green)' : 'var(--pac-orange)'}; font-weight: bold;">
                         ${row.submitted ? 'COMMITTED TO CLUSTER' : 'ACTIVE LIVE RUNTIME'}
                     </td>
-                    <td><span style="background: #F1F5F9; padding: 4px 12px; border-radius:4px; font-weight:700;">${currentScore}</span></td>
+                    <td><span style="background: #F1F5F9; padding:4px 8px; border-radius:4px; font-weight:bold;">${currentScore} / ${globalQuestions.length}</span></td>
                     <td style="color: ${activeAnomalies > 0 ? 'var(--danger-red)' : 'var(--success-green)'}; font-weight: bold;">
-                        ${activeAnomalies} Anomaly Logged
+                        ⚠️ ${activeAnomalies} INFRACTIONS DETECTED
                     </td>
                 `;
                 gridBodyElement.appendChild(logicalTableElementRow);
