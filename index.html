@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRIKSHA'S ASSESSMENT CELL | Examination & Analytics Portal</title>
+    <title>PRIKSHA'S ASSESSMENT CELL | GitHub Cloud Deployment Portal</title>
     <style>
         :root {
             --pac-navy: #07294D;
@@ -457,6 +457,73 @@
         let dynamicTimerTicker = null;
         let activeRuntimeQuestions = []; 
 
+        // Fisher-Yates Array Shuffle Logic GitHub Pages Compatible
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            let newArray = [...array];
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [newArray[currentIndex], newArray[randomIndex]] = [newArray[randomIndex], newArray[currentIndex]];
+            }
+            return newArray;
+        }
+
+        // GITHUB PAGES READY: DYNAMIC ALGORITHMIC VARIABLE GENERATOR
+        function generateDynamicNumericalQuestions() {
+            const valA1 = Math.floor(Math.random() * 4) + 2; 
+            const valB1 = Math.floor(Math.random() * 3) + 2; 
+            const ans1 = 0.5 * valA1 * (valB1 * valB1); 
+
+            const valA2 = Math.floor(Math.random() * 6) + 2; 
+            const valB2 = Math.floor(Math.random() * 5) + 3; 
+            const ans2 = 0.5 * valA2 * (valB2 * valB2); 
+
+            const valA3 = Math.floor(Math.random() * 50) + 20; 
+            const valB3 = Math.floor(Math.random() * 5) + 4;  
+            const ans3 = parseFloat((valA3 / valB3).toFixed(2)); 
+
+            const templates = [
+                {
+                    id: "dyn_q1",
+                    subject: "MATHEMATICS",
+                    question: `Evaluate the total definite surface area enclosed under the curve function f(x) = ${valA1}x bounded on the horizontal axis from interval limit x = 0 to x = ${valB1} units. (Apply standard definite integration mechanics).`,
+                    options: shuffle([`${ans1} sq. units`, `${ans1 + 2.5} sq. units`, `${ans1 - 1.5} sq. units`, `${ans1 * 2} sq. units`]),
+                    answer: `${ans1} sq. units`
+                },
+                {
+                    id: "dyn_q2",
+                    subject: "PHYSICS",
+                    question: `A physical particle tracking payload configuration has an active structural mass of exactly ${valA2} kg and propagates down a vector plane with a velocity magnitude of ${valB2} m/s. Compute the total kinetic energy capacity footprint.`,
+                    options: shuffle([`${ans2} Joules`, `${ans2 + 10} Joules`, `${ans2 - 4} Joules`, `${ans2 * 2} Joules`]),
+                    answer: `${ans2} Joules`
+                },
+                {
+                    id: "dyn_q3",
+                    subject: "CHEMISTRY",
+                    question: `A standardized chemical matrix reagent compound mass is scaled at exactly ${valA3} grams. If it takes up an exact localized test cube space volume of ${valB3} mL, evaluate its target density footprint score.`,
+                    options: shuffle([`${ans3} g/mL`, `${(ans3 + 1.15).toFixed(2)} g/mL`, `${(ans3 - 0.75).toFixed(2)} g/mL`, `${(ans3 * 1.5).toFixed(2)} g/mL`]),
+                    answer: `${ans3} g/mL`
+                }
+            ];
+
+            return shuffle(templates);
+        }
+
+        // DATABASE MIGRATION TO LOCALSTORAGE FOR SERVERLESS DEPLOYMENTS
+        function getLocalUsers() {
+            const users = localStorage.getItem('pac_mock_users');
+            return users ? JSON.parse(users) : [
+                { username: 'mitaoe1', password: '123', score: 0, tabSwitches: 0, submitted: false },
+                { username: 'mitaoe2', password: '1234', score: 0, tabSwitches: 0, submitted: false },
+                { username: 'mitaoe3', password: '12345', score: 0, tabSwitches: 0, submitted: false }
+            ];
+        }
+
+        function saveLocalUsers(usersArray) {
+            localStorage.setItem('pac_mock_users', JSON.stringify(usersArray));
+        }
+
         window.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'A') {
                 const btn = document.getElementById('adminToggleBtn');
@@ -464,16 +531,15 @@
             }
         });
 
-        window.addEventListener('blur', async () => {
+        window.addEventListener('blur', () => {
             if (examActive && sessionUser !== "") {
-                try {
-                    await fetch('/api/anomaly', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ username: sessionUser })
-                    });
-                } catch (err) { console.error(err); }
-                alert('⚠️ SECURE ENGINE WARNING: Cross-window tab manipulation event transmitted to server infrastructure logs.');
+                let users = getLocalUsers();
+                let userIndex = users.findIndex(u => u.username.toLowerCase() === sessionUser.toLowerCase());
+                if (userIndex !== -1) {
+                    users[userIndex].tabSwitches = (users[userIndex].tabSwitches || 0) + 1;
+                    saveLocalUsers(users);
+                }
+                alert('⚠️ SECURE ENGINE WARNING: Cross-window tab manipulation event transmitted to infrastructure logs.');
             }
         });
 
@@ -496,7 +562,7 @@
             }
         }
 
-        async function executeRegistration() {
+        function executeRegistration() {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
 
@@ -505,25 +571,28 @@
                 return;
             }
 
-            try {
-                const response = await fetch('/api/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
-                const resData = await response.json();
-                if(response.ok) {
-                    sessionUser = resData.username;
-                    activateCbtEngineWindow();
-                } else {
-                    alert(resData.message);
-                }
-            } catch(err) {
-                alert("Server registration communication failure.");
+            let users = getLocalUsers();
+            let exists = users.some(u => u.username.toLowerCase() === username.toLowerCase());
+
+            if (exists) {
+                alert("⚠️ Error: Candidate Roll ID already exists inside local registers.");
+                return;
             }
+
+            users.push({
+                username: username,
+                password: password,
+                submitted: false,
+                score: 0,
+                tabSwitches: 0
+            });
+            saveLocalUsers(users);
+
+            sessionUser = username;
+            activateCbtEngineWindow();
         }
 
-        async function executeAuthentication() {
+        function executeAuthentication() {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
 
@@ -532,25 +601,22 @@
                 return;
             }
 
-            try {
-                const response = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
-                const resData = await response.json();
-                if(response.ok) {
-                    sessionUser = resData.username;
-                    activateCbtEngineWindow();
-                } else {
-                    alert(resData.message);
+            let users = getLocalUsers();
+            let targetUser = users.find(u => u.username.toLowerCase() === username.toLowerCase() && u.password === password);
+
+            if (targetUser) {
+                if (targetUser.submitted) {
+                    alert("❌ Access Denied: Terminal session has already been processed for this credential set.");
+                    return;
                 }
-            } catch(err) {
-                alert("Server authentication communication failure.");
+                sessionUser = username;
+                activateCbtEngineWindow();
+            } else {
+                alert("⚠️ Authentication Failure: Invalid Credentials or Unregistered System Roll ID.");
             }
         }
 
-        async function activateCbtEngineWindow() {
+        function activateCbtEngineWindow() {
             document.getElementById('loginSection').classList.add('hidden');
             document.getElementById('videoContainer').classList.add('hidden'); 
             document.getElementById('examSection').classList.remove('hidden');
@@ -559,14 +625,7 @@
 
             startCountdownEngine();
 
-            // FIX: Purane dynamic logic ko hata kar SERVER API se fresh dynamic questions direct fetch kiye hain!
-            try {
-                const res = await fetch('/api/questions');
-                activeRuntimeQuestions = await res.json();
-            } catch (err) {
-                alert("Failed to sync structural dynamic template queries.");
-                return;
-            }
+            activeRuntimeQuestions = generateDynamicNumericalQuestions();
 
             const targetContainer = document.getElementById('questionsContainer');
             targetContainer.innerHTML = "";
@@ -575,7 +634,7 @@
                 const block = document.createElement('div');
                 block.className = "question-stream-card";
                 block.innerHTML = `
-                    <div class="q-meta-title">${q.subject || 'DYNAMIC REFERENCE'} • Item No. ${idx + 1}</div>
+                    <div class="q-meta-title">${q.subject} • Core Evaluation Target No. ${idx + 1}</div>
                     <p style="font-size: 1.05rem; font-weight: 600; margin-bottom: 16px; color:#334155;">${q.question}</p>
                     ${q.options.map(opt => `
                         <label class="option-node-row">
@@ -592,7 +651,7 @@
             dynamicTimerTicker = setInterval(() => {
                 if (timeRemainingSeconds <= 0) {
                     clearInterval(dynamicTimerTicker);
-                    alert("⏰ ALLOCATED ASSESSMENT TIME EXPIRED: Executing structural snapshot saving routines.");
+                    alert("⏰ ALLOCATED ASSESSMENT TIME EXPIRED: Saving sheet snapshot.");
                     executeFinalTestSubmission();
                 } else {
                     timeRemainingSeconds--;
@@ -608,7 +667,7 @@
                 `${runningMinutes.toString().padStart(2, '0')}:${runningSeconds.toString().padStart(2, '0')}`;
         }
 
-        async function executeFinalTestSubmission() {
+        function executeFinalTestSubmission() {
             clearInterval(dynamicTimerTicker);
             examActive = false;
             
@@ -627,18 +686,13 @@
                 }
             });
 
-            // Post absolute score variables seamlessly back to dynamic backend framework 
-            try {
-                await fetch('/api/submit', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        username: sessionUser, 
-                        answers: answerMappingPayload,
-                        calculatedScore: calculatedScore
-                    })
-                });
-            } catch(e) { console.error(e); }
+            let users = getLocalUsers();
+            let userIndex = users.findIndex(u => u.username.toLowerCase() === sessionUser.toLowerCase());
+            if (userIndex !== -1) {
+                users[userIndex].submitted = true;
+                users[userIndex].score = calculatedScore;
+                saveLocalUsers(users);
+            }
 
             generateEvaluationReportTranscript(calculatedScore, answerMappingPayload);
         }
@@ -689,7 +743,7 @@
             });
         }
 
-        async function switchToAdminPanel() {
+        function switchToAdminPanel() {
             document.getElementById('loginSection').classList.add('hidden');
             document.getElementById('examSection').classList.add('hidden');
             document.getElementById('resultSection').classList.add('hidden');
@@ -698,36 +752,30 @@
             syncServerMetricsData();
         }
 
-        async function syncServerMetricsData() {
+        function syncServerMetricsData() {
             const tableBody = document.getElementById('adminTableContent');
             tableBody.innerHTML = "";
             
-            try {
-                const res = await fetch('/api/admin/metrics');
-                let users = await res.json();
-                
-                if(users.length === 0) {
-                    tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#64748B; font-weight:600;">No local session records discovered.</td></tr>`;
-                    return;
-                }
-
-                users.forEach(user => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td style="font-weight:700; color:var(--pac-navy);">${user.studentId.toUpperCase()}</td>
-                        <td>
-                            <span class="pill-badge" style="background: ${user.submitted ? 'var(--success-green)' : 'var(--warning-amber)'};">
-                                ${user.submitted ? 'TERMINATED SUBMITTED' : 'SESSION ACTIVE'}
-                            </span>
-                        </td>
-                        <td style="font-weight:700;">${user.submitted ? user.score + " Marks" : "N/A"}</td>
-                        <td style="font-weight:700; color: ${user.tabSwitches > 0 ? 'var(--danger-red)' : '#1A1A1A'};">${user.tabSwitches || 0} Anomaly Flags</td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-            } catch(e) {
-                tableBody.innerHTML = `<tr><td colspan="4">Cluster fetch exception logs failed.</td></tr>`;
+            let users = getLocalUsers();
+            if(users.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#64748B; font-weight:600;">No local session records discovered.</td></tr>`;
+                return;
             }
+
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td style="font-weight:700; color:var(--pac-navy);">${user.username.toUpperCase()}</td>
+                    <td>
+                        <span class="pill-badge" style="background: ${user.submitted ? 'var(--success-green)' : 'var(--warning-amber)'};">
+                            ${user.submitted ? 'TERMINATED SUBMITTED' : 'SESSION ACTIVE'}
+                        </span>
+                    </td>
+                    <td style="font-weight:700;">${user.submitted ? user.score + " Marks" : "N/A"}</td>
+                    <td style="font-weight:700; color: ${user.tabSwitches > 0 ? 'var(--danger-red)' : '#1A1A1A'};">${user.tabSwitches || 0} Anomaly Flags</td>
+                `;
+                tableBody.appendChild(row);
+            });
         }
     </script>
 </body>
