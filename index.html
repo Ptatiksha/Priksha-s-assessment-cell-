@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRIKSHA'S ASSESSMENT CELL | Examination & Analytics Portal</title>
+    <style>
+        :root {
+            --pac-navy: #07294D;
+            --pac-blue: #0B4A8F;
+            --pac-accent: #FF4D4D;
+            --pac-orange: #EF7F1A;
+            --pac-light: #F4F6F8;
+            --border-color: #E2E8F0;
+            --success-green: #10B981;
+            --danger-red: #EF4444;
+            --warning-amber: #F59E0B;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: #FAFAFA; color: #1A1A1A; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+
+        /* Top Government Style Header */
+        .gov-banner {
+            background: var(--pac-navy);
+            color: #FFF;
+            font-size: 0.75rem;
+            padding: 6px 24px;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Institutional Main Header */
+        .pac-header {
+            background: #FFF;
+            border-bottom: 4px solid var(--pac-orange);
+            padding: 14px 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+        .header-brand h1 {
+            font-size: 1.6rem;
+            color: var(--pac-navy);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .header-brand p {
+            font-size: 0.8rem;
+            color: #64748B;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+        .system-badge {
+            background: #EFF6FF;
+            border: 1px solid #BFDBFE;
+            color: var(--pac-blue);
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* Live Announcement Marquee Bar */
+        .ticker-wrap {
+            width: 100%;
+            background: #FFF4E5;
+            border-bottom: 1px solid #FFE7CC;
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 10px 0;
+            z-index: 5;
+        }
+        .ticker-content {
+            display: inline-block;
+            animation: marquee 25s linear infinite;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #B45309;
+        }
+        @keyframes marquee {
+            0% { transform: translate3d(100%, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+
+        /* Cinematic Cyber Security Background Video Wrapper */
+        .video-bg-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: #020617; 
+        }
+        .video-bg-container iframe {
+            width: 100vw;
+            height: 56.25vw;
+            min-height: 100vh;
+            min-width: 177.77vh;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            opacity: 0.35; 
+            pointer-events: none;
+        }
+
+        /* Centralized Component Core Container */
+        .portal-main {
+            flex: 1;
+            width: 100%;
+            max-width: 1340px;
+            margin: 20px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Split Screen for Login + Notice Board */
+        .gateway-split {
+            display: grid;
+            grid-template-columns: 1.2fr 1.8fr;
+            gap: 25px;
+            margin-top: 15px;
+        }
+        @media (max-width: 960px) {
+            .gateway-split { grid-template-columns: 1fr; }
+        }
+
+        /* Structural Framework Modules */
+        .pac-card {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-heading {
+            background: #FFF;
+            border-bottom: 2px solid var(--pac-light);
+            padding: 16px 20px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--pac-navy);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Notices / Announcement Feeds UI */
+        .notice-board-body { padding: 20px; max-height: 450px; overflow-y: auto; }
+        .notice-item {
+            padding: 14px;
+            border-left: 4px solid var(--pac-blue);
+            background: var(--pac-light);
+            margin-bottom: 12px;
+            border-radius: 0 4px 4px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .notice-date { font-size: 0.75rem; color: #64748B; font-weight: bold; margin-bottom: 4px; }
+        .notice-text { font-size: 0.9rem; font-weight: 600; color: #334155; line-height: 1.4; }
+
+        /* Login Fields Core Architecture */
+        .input-group { margin-bottom: 18px; padding: 0 20px; }
+        .input-group:first-of-type { margin-top: 25px; }
+        .input-group label { display: block; margin-bottom: 6px; font-size: 0.8rem; font-weight: 700; color: #475569; text-transform: uppercase; }
+        .input-group input { width: 100%; padding: 12px 16px; border: 1px solid #CBD5E1; border-radius: 4px; font-size: 0.95rem; transition: all 0.2s; }
+        .input-group input:focus { outline: none; border-color: var(--pac-blue); box-shadow: 0 0 0 3px rgba(11, 74, 143, 0.15); }
+
+        .btn-action-core {
+            background: var(--pac-orange);
+            color: #FFF;
+            border: none;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: calc(100% - 40px);
+            margin: 10px 20px 15px 20px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 6px rgba(239, 127, 26, 0.2);
+            transition: 0.2s;
+        }
+        .btn-action-core:hover { background: #D66F11; }
+
+        /* Form switcher style */
+        .form-switch-prompt {
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 25px;
+        }
+        .form-switch-prompt span {
+            color: var(--pac-blue);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* Active Test Engine Mode Layout */
+        .exam-layout-split {
+            display: grid;
+            grid-template-columns: 3.2fr 1fr;
+            gap: 25px;
+        }
+        @media (max-width: 900px) {
+            .exam-layout-split { grid-template-columns: 1fr; }
+        }
+
+        /* Persistent Countdown Floating Element */
+        .timer-box {
+            background: #FFF1F2;
+            border: 1px solid #FECDD3;
+            color: var(--pac-accent);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .question-stream-card {
+            background: #FFF;
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+        }
+        .q-meta-title { font-size: 1rem; font-weight: 700; color: var(--pac-navy); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed var(--border-color); }
+        .option-node-row {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            padding: 14px 18px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            background: #FFF;
+            transition: all 0.15s;
+        }
+        .option-node-row:hover { background: #F8FAFC; border-color: var(--pac-blue); }
+        .option-node-row input { margin-right: 14px; width: 18px; height: 18px; accent-color: var(--pac-blue); }
+
+        /* Sidebar Configurations */
+        .sidebar-panel { background: var(--pac-light); border: 1px solid var(--border-color); border-radius: 6px; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+        .candidate-meta-card { display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+        .profile-avatar { width: 48px; height: 48px; background: #E2E8F0; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #475569; }
+
+        /* Statistical Report Sheet Framework */
+        .transcript-metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        @media (max-width: 680px) {
+            .transcript-metrics-grid { grid-template-columns: 1fr 1fr; }
+        }
+        .metric-unit-card {
+            background: #FFF;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 18px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .metric-unit-card h4 { font-size: 2rem; margin-bottom: 4px; color: var(--pac-navy); }
+        .metric-unit-card p { font-size: 0.75rem; color: #64748B; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .item-transcript-box {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+        .item-transcript-header {
+            padding: 14px 20px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            background: var(--pac-light);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .item-transcript-details { padding: 18px; background: #FFF; font-size: 0.95rem; display: flex; flex-direction: column; gap: 8px; }
+        .pill-badge { padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; color: #FFF; font-weight: bold; }
+
+        /* Control Room Logs */
+        .table-view-container { overflow-x: auto; margin-top: 15px; border: 1px solid var(--border-color); border-radius: 6px; }
+        table { width: 100%; border-collapse: collapse; background: #FFF; }
+        th, td { padding: 14px 18px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; }
+        th { background: var(--pac-light); color: var(--pac-navy); font-weight: bold; }
+
+        .hidden { display: none !important; }
+        .bypass-toggle { background: var(--pac-navy); border: none; color: #FFF; padding: 8px 16px; border-radius: 4px; font-size: 0.8rem; font-weight: 700; cursor: pointer; display: none; margin-bottom: 12px; margin-left: auto; }
+    </style>
+</head>
+<body>
+
+    <!-- Top Branding Strip -->
+    <div class="gov-banner">
+        <div>PRIKSHA'S ASSESSMENT CELL • CENTRAL SECURITY WORKSPACE</div>
+        <div>परीक्षा असाइनमेंट cell (PAC)</div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="pac-header">
+        <div class="header-brand">
+            <h1>PRIKSHA'S ASSESSMENT CELL</h1>
+            <p>Quantum Examination System (PAC-QES) | Computer Based Test Engine</p>
+        </div>
+        <div class="system-badge">PAC SECURE ENGINE V2.6</div>
+    </header>
+
+    <!-- Live Announcement Ticker Bar -->
+    <div class="ticker-wrap">
+        <div class="ticker-content">
+            ⚠️ IMPORTANT NOTICE: All active exam links are governed under strict multi-layered proctoring parameters. • Candidates must ensure stable connectivity before finalizing logs. • Any tab change or window manipulation logs an infraction automatically to the PAC database center.
+        </div>
+    </div>
+
+    <!-- Video Background Container -->
+    <div id="videoContainer" class="video-bg-container">
+        <iframe src="https://www.youtube.com/embed/FsIenS7u9N4?autoplay=1&mute=1&loop=1&playlist=FsIenS7u9N4&controls=0&showinfo=0&rel=0&modestbranding=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+    </div>
+
+    <div class="portal-main">
+        <button id="adminToggleBtn" class="bypass-toggle" onclick="switchToAdminPanel()">Control Room Console</button>
+
+        <!-- 1. Gateway Split UI -->
+        <div id="loginSection" class="gateway-split">
+            <div class="pac-card">
+                <div id="authBoxTitle" class="card-heading">Candidate Login Gateway</div>
+                
+                <div class="input-group">
+                    <label>Candidate Roll Number</label>
+                    <input type="text" id="username" placeholder="Enter System Roll ID (e.g., pratik1)">
+                </div>
+                <div class="input-group">
+                    <label>Access Password</label>
+                    <input type="password" id="password" placeholder="••••">
+                </div>
+
+                <button id="authPrimaryBtn" class="btn-action-core" onclick="executeAuthentication()">Authenticate & Init Session</button>
+                
+                <div id="formSwitchPrompt" class="form-switch-prompt">
+                    New Candidate? <span onclick="toggleAuthMode(true)">Register System Roll ID</span>
+                </div>
+            </div>
+
+            <div class="pac-card">
+                <div class="card-heading">Official PAC Bulletins & Notices</div>
+                <div class="notice-board-body">
+                    <div class="notice-item">
+                        <div class="notice-date">JULY 18, 2026</div>
+                        <div class="notice-text">Strict Compliance: Switching browser workspace tabs or running debuggers records anomaly entries inside the cloud loop backnodes immediately.</div>
+                    </div>
+                    <div class="notice-item">
+                        <div class="notice-date">JULY 15, 2026</div>
+                        <div class="notice-text">Provisional performance transcripts will be available instantly post final submittal. Official logs require validation from the center supervisor.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Active Test Processing Engine Window -->
+        <div id="examSection" class="hidden">
+            <div class="card-heading" style="margin-bottom: 20px; background: #FFF; border: 1px solid var(--border-color); border-radius: 6px;">
+                <div>Active Assessment Workspace Window</div>
+                <div class="timer-box">
+                    <span>⏱️ TIME REMAINING:</span>
+                    <span id="countdownDisplay">10:00</span>
+                </div>
+            </div>
+
+            <div class="exam-layout-split">
+                <div id="questionsContainer"></div>
+
+                <div class="sidebar-panel">
+                    <div class="candidate-meta-card">
+                        <div class="profile-avatar">PAC</div>
+                        <div>
+                            <div id="sideUserLabel" style="font-weight: 700; font-size: 0.95rem;">CANDIDATE</div>
+                            <div style="font-size: 0.75rem; color:#64748B; font-weight: 600;">Paper ID: fullstack_2026</div>
+                        </div>
+                    </div>
+                    <div style="font-size: 0.8rem; color: #475569; line-height: 1.5; background: #FFF; padding: 12px; border: 1px solid var(--border-color); border-radius: 4px;">
+                        <strong>Note:</strong> The timer runs globally. Upon completion, answers are force-saved into the central verification core.
+                    </div>
+                    <button class="btn-action-core" style="background: var(--success-green); width: 100%; margin: auto 0 0 0; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);" onclick="executeFinalTestSubmission()">Submit Response Sheet</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Performance Scorecard Report -->
+        <div id="resultSection" class="hidden">
+            <div class="pac-card" style="border-top: 4px solid var(--success-green);">
+                <div class="card-heading" style="background: #F0FDF4; color: var(--success-green);">
+                    <div>Official Performance Transcript</div>
+                    <div style="font-size: 0.8rem; background: #FFF; border: 1px solid #BBF7D0; padding: 4px 8px; border-radius: 4px;">PAC Central Records</div>
+                </div>
+                <div class="panel-inner-content" style="padding: 24px;">
+                    <div class="transcript-metrics-grid">
+                        <div class="metric-unit-card" style="border-top: 4px solid var(--pac-blue);">
+                            <h4 id="resTotalMarks">0/0</h4>
+                            <p>Calculated Score</p>
+                        </div>
+                        <div class="metric-unit-card" style="border-top: 4px solid var(--success-green);">
+                            <h4 id="resCorrectCount" style="color: var(--success-green);">0</h4>
+                            <p>Correct Answers</p>
+                        </div>
+                        <div class="metric-unit-card" style="border-top: 4px solid var(--danger-red);">
+                            <h4 id="resWrongCount" style="color: var(--danger-red);">0</h4>
+                            <p>Incorrect Choices</p>
+                        </div>
+                        <div class="metric-unit-card" style="border-top: 4px solid var(--warning-amber);">
+                            <h4 id="resAccuracy">0%</h4>
+                            <p>Accuracy performance</p>
+                        </div>
+                    </div>
+
+                    <div style="font-weight: 700; font-size: 1.1rem; color: var(--pac-navy); margin-bottom: 16px; border-bottom: 2px solid var(--pac-light); padding-bottom: 6px;">
+                        Question-by-Question Item Evaluation Analysis
+                    </div>
+                    <div id="detailedTranscriptContainer"></div>
+                    
+                    <button class="btn-action-core" style="background: var(--pac-navy); width: auto; min-width: 200px; margin: 20px 0 0 0;" onclick="window.location.reload()">Terminate Session Logout</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Administration Logs Console Room -->
+        <div id="consoleSection" class="hidden">
+            <div class="pac-card">
+                <div class="card-heading">PAC Local Command Monitor Center</div>
+                <div class="panel-inner-content" style="padding: 20px;">
+                    <button class="btn-action-core" style="width: 100%; margin: 0 0 15px 0; background: var(--pac-blue);" onclick="syncServerMetricsData()">Query Live Cluster Records</button>
+                    <div class="table-view-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Candidate Roll ID</th>
+                                    <th>Session Integrity Status</th>
+                                    <th>Calculated Marks</th>
+                                    <th>Security Deviations (Tab Switches)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminTableContent"></tbody>
+                        </table>
+                    </div>
+                    <button class="btn-action-core" style="background: #475569; margin: 20px 0 0 0; width: auto;" onclick="window.location.reload()">Exit Control Command</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let sessionUser = "";
+        let examActive = false;
+        let isRegisterMode = false;
+        let globalQuestions = [];
+        let timeRemainingSeconds = 600; 
+        let dynamicTimerTicker = null;
+
+        window.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'A') {
+                const btn = document.getElementById('adminToggleBtn');
+                btn.style.display = btn.style.display === 'block' ? 'none' : 'block';
+            }
+        });
+
+        window.addEventListener('blur', () => {
+            if (examActive && sessionUser !== "") {
+                fetch('/api/anomaly', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: sessionUser })
+                });
+                alert('⚠️ SECURE ENGINE WARNING: Cross-window tab manipulation event transmitted to server infrastructure logs.');
+            }
+        });
+
+        function toggleAuthMode(status) {
+            isRegisterMode = status;
+            const title = document.getElementById('authBoxTitle');
+            const primaryBtn = document.getElementById('authPrimaryBtn');
+            const switchPrompt = document.getElementById('formSwitchPrompt');
+
+            if (isRegisterMode) {
+                title.innerText = "Candidate Registration Hub";
+                primaryBtn.innerText = "Register & Create Account";
+                primaryBtn.setAttribute("onclick", "executeRegistration()");
+                switchPrompt.innerHTML = `Already Registered? <span onclick="toggleAuthMode(false)">Back to System Login</span>`;
+            } else {
+                title.innerText = "Candidate Login Gateway";
+                primaryBtn.innerText = "Authenticate & Init Session";
+                primaryBtn.setAttribute("onclick", "executeAuthentication()");
+                switchPrompt.innerHTML = `New Candidate? <span onclick="toggleAuthMode(true)">Register System Roll ID</span>`;
+            }
+        }
+
+        async function executeRegistration() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+
+            if(!username || !password) {
+                alert("⚠️ Validation Failure: Both Roll Number and Password fields are mandatory.");
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const payload = await res.json();
+
+                if (res.status === 201 || res.status === 200) {
+                    sessionUser = username;
+                    activateCbtEngineWindow();
+                } else {
+                    alert(payload.message || "Registration Failed.");
+                }
+            } catch (err) {
+                alert("Database cluster offline or network error.");
+            }
+        }
+
+        async function executeAuthentication() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+            const payload = await res.json();
+
+            if (res.status === 200) {
+                sessionUser = username;
+                activateCbtEngineWindow();
+            } else {
+                alert(payload.message);
+            }
+        }
+
+        async function activateCbtEngineWindow() {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('videoContainer').classList.add('hidden'); 
+            document.getElementById('examSection').classList.remove('hidden');
+            document.getElementById('sideUserLabel').innerText = sessionUser.toUpperCase();
+            examActive = true;
+
+            startCountdownEngine();
+
+            const res = await fetch('/api/questions');
+            globalQuestions = await res.json();
+            const targetContainer = document.getElementById('questionsContainer');
+            targetContainer.innerHTML = "";
+
+            globalQuestions.forEach((q, idx) => {
+                const block = document.createElement('div');
+                block.className = "question-stream-card";
+                block.innerHTML = `
+                    <div class="q-meta-title">Question Reference Item. ${idx + 1}</div>
+                    <p style="font-size: 1.05rem; font-weight: 600; margin-bottom: 16px; color:#334155;">${q.question}</p>
+                    ${q.options.map(opt => `
+                        <label class="option-node-row">
+                            <input type="radio" name="q-${q.id}" value="${opt}">
+                            <span>${opt}</span>
+                        </label>
+                    `).join('')}
+                `;
+                targetContainer.appendChild(block);
+            });
+        }
+
+        function startCountdownEngine() {
+            dynamicTimerTicker = setInterval(() => {
+                if (timeRemainingSeconds <= 0) {
+                    clearInterval(dynamicTimerTicker);
+                    alert("⏰ ALLOCATED ASSESSMENT TIME EXPIRED: Executing structural snapshot saving routines.");
+                    executeFinalTestSubmission();
+                } else {
+                    timeRemainingSeconds--;
+                    renderTimerDisplayMetrics();
+                }
+            }, 1000);
+        }
+
+        function renderTimerDisplayMetrics() {
+            const runningMinutes = Math.floor(timeRemainingSeconds / 60);
+            const runningSeconds = timeRemainingSeconds % 60;
+            document.getElementById('countdownDisplay').innerText = 
+                `${runningMinutes.toString().padStart(2, '0')}:${runningSeconds.toString().padStart(2, '0')}`;
+        }
+
+        async function executeFinalTestSubmission() {
+            clearInterval(dynamicTimerTicker);
+            examActive = false;
+            
+            const targetedSelections = document.querySelectorAll('input[type="radio"]:checked');
+            const answerMappingPayload = {};
+
+            targetedSelections.forEach(element => {
+                const targetKey = element.name.split('-')[1];
+                answerMappingPayload[targetKey] = element.value;
+            });
+
+            const res = await fetch('/api/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: sessionUser, answers: answerMappingPayload })
+            });
+            const data = await res.json();
+
+            generateEvaluationReportTranscript(data.score, answerMappingPayload);
+        }
+
+        function generateEvaluationReportTranscript(finalScoreCount, historicalSelections) {
+            document.getElementById('examSection').classList.add('hidden');
+            document.getElementById('resultSection').classList.remove('hidden');
+
+            const databaseQuestionCount = globalQuestions.length;
+            const varianceIncorrectCount = databaseQuestionCount - finalScoreCount;
+            const computationAccuracyRate = databaseQuestionCount > 0 ? Math.round((finalScoreCount / databaseQuestionCount) * 100) : 0;
+
+            document.getElementById('resTotalMarks').innerText = `${finalScoreCount} / ${databaseQuestionCount}`;
+            document.getElementById('resCorrectCount').innerText = finalScoreCount;
+            document.getElementById('resWrongCount').innerText = varianceIncorrectCount;
+            document.getElementById('resAccuracy').innerText = `${computationAccuracyRate}%`;
+
+            const deploymentContainer = document.getElementById('detailedTranscriptContainer');
+            deploymentContainer.innerHTML = "";
+
+            globalQuestions.forEach((q, idx) => {
+                const historicalCandidatePick = historicalSelections[q.id] || "Not Attempted";
+                const absoluteValidationState = historicalCandidatePick === q.answer;
+
+                const wrapperNode = document.createElement('div');
+                wrapperNode.className = "item-transcript-box";
+                wrapperNode.style.borderLeft = `5px solid ${absoluteValidationState ? 'var(--success-green)' : 'var(--danger-red)'}`;
+
+                wrapperNode.innerHTML = `
+                    <div class="item-transcript-header">
+                        <div>Question System Identifier Segment No. ${idx + 1}</div>
+                        <span class="pill-badge" style="background: ${absoluteValidationState ? 'var(--success-green)' : 'var(--danger-red)'}">
+                            ${absoluteValidationState ? '✓ CORRECT MATCH' : '✗ INCORRECT RESPONSE'}
+                        </span>
+                    </div>
+                    <div class="item-transcript-details">
+                        <div style="font-weight: 700; font-size: 1.05rem; color: var(--pac-navy);">${q.question}</div>
+                        <div style="margin-top: 4px;">• Tracked Student Choice: <span style="font-weight: 700; color: ${absoluteValidationState ? 'var(--success-green)' : 'var(--danger-red)'};">${historicalCandidatePick}</span></div>
+                        <div>• System Verification Matrix Standard Key: <span style="font-weight: 700; color: var(--success-green);">${q.answer}</span></div>
+                    </div>
+                `;
+                deploymentContainer.appendChild(wrapperNode);
+            });
+        }
+
+        function switchToAdminPanel() {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('videoContainer').classList.add('hidden');
+            document.getElementById('examSection').classList.add('hidden');
+            document.getElementById('resultSection').classList.add('hidden');
+            document.getElementById('consoleSection').classList.remove('hidden');
+            syncServerMetricsData();
+        }
+
+        async function syncServerMetricsData() {
+            const res = await fetch('/api/admin/metrics');
+            const dataRowCollection = await res.json();
+            const gridBodyElement = document.getElementById('adminTableContent');
+            gridBodyElement.innerHTML = "";
+
+            dataRowCollection.forEach(row => {
+                const logicalTableElementRow = document.createElement('tr');
+                
+                // Direct Object mapping validation fallbacks to protect layout structures
+                const currentScore = row.score !== undefined ? row.score : 0;
+                const activeAnomalies = row.anomalies !== undefined ? row.anomalies : (row.tabSwitches !== undefined ? row.tabSwitches : 0);
+                
+                logicalTableElementRow.innerHTML = `
+                    <td><strong>${row.studentId || row.username}</strong></td>
+                    <td style="color: ${row.submitted ? 'var(--success-green)' : 'var(--pac-orange)'}; font-weight: bold;">
+                        ${row.submitted ? 'COMMITTED TO CLUSTER' : 'ACTIVE LIVE RUNTIME'}
+                    </td>
+                    <td><span style="background: #F1F5F9; padding: 4px 12px; border-radius:4px; font-weight:700;">${currentScore}</span></td>
+                    <td style="color: ${activeAnomalies > 0 ? 'var(--danger-red)' : 'var(--success-green)'}; font-weight: bold;">
+                        ${activeAnomalies} Anomaly Logged
+                    </td>
+                `;
+                gridBodyElement.appendChild(logicalTableElementRow);
+            });
+        }
+    </script>
+</body>
+</html>
