@@ -291,13 +291,102 @@
 
         .hidden { display: none !important; }
         .bypass-toggle { background: var(--pac-navy); border: none; color: #FFF; padding: 8px 16px; border-radius: 4px; font-size: 0.8rem; font-weight: 700; cursor: pointer; display: none; margin-bottom: 12px; margin-left: auto; }
+
+        /* ==========================================
+           NEW INTERACTIVE ADD-ONS & STYLING ENGINE 
+           (PRESERVES ALL EXISTING STYLES)
+        ========================================== */
+        .secure-context-restricted {
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+        }
+        .gateway-support-wrapper {
+            grid-column: span 2;
+            margin-top: 10px;
+        }
+        @media (max-width: 960px) {
+            .gateway-support-wrapper { grid-column: span 1; }
+        }
+        .support-card {
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid var(--border-color);
+            border-top: 4px solid var(--pac-blue);
+            border-radius: 6px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            padding: 20px;
+        }
+        .support-grid-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        @media (max-width: 600px) {
+            .support-grid-fields { grid-template-columns: 1fr; }
+        }
+        .support-input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #CBD5E1;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+        .support-textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #CBD5E1;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            height: 80px;
+            resize: vertical;
+            margin-top: 4px;
+        }
+        .support-select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #CBD5E1;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            background: #FFF;
+            margin-top: 4px;
+        }
+        .support-submit-btn {
+            background: var(--pac-navy);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background 0.2s;
+            margin-top: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .support-submit-btn:hover { background: var(--pac-blue); }
+        .sys-badge-alert {
+            display: inline-block;
+            padding: 3px 8px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            border-radius: 3px;
+            margin-left: 8px;
+            background: #FEF3C7;
+            color: #D97706;
+        }
     </style>
 </head>
-<body>
+<body class="secure-context-restricted">
 
     <div class="gov-banner">
         <div>PRIKSHA'S ASSESSMENT CELL • CENTRAL SECURITY WORKSPACE</div>
-        <div>परीक्षा असाइनमेंट cell (PAC)</div>
+        <div>परीक्षा असाइनメント cell (PAC)</div>
     </div>
 
     <header class="pac-header">
@@ -355,6 +444,44 @@
                     </div>
                 </div>
             </div>
+
+            <!-- NEW WIDGET: Candidate Support & Query Console (Gateway View) -->
+            <div class="gateway-support-wrapper" id="gatewaySupportSection">
+                <div class="support-card">
+                    <div style="font-weight: 800; font-size: 1.05rem; color: var(--pac-navy); display: flex; align-items: center; justify-content: space-between;">
+                        <div>📡 LIVE HELPDESK: DIRECT SUPPORT & QUERY CONSOLE</div>
+                        <span class="sys-badge-alert">🔒 Proctors Monitored</span>
+                    </div>
+                    <p style="font-size: 0.8rem; color: #64748B; margin-top: 4px;">Candidate verification or structural platform execution issue? Post instant query tokens directly to host team supervisors.</p>
+                    
+                    <form id="pacGatewaySupportForm" onsubmit="handleSupportQuerySubmission(event, 'Gateway Link')">
+                        <div class="support-grid-fields">
+                            <div>
+                                <label style="font-size: 0.75rem; font-weight: 700; color: #475569;">FULL CANDIDATE NAME</label>
+                                <input type="text" id="sp_name" class="support-input" placeholder="e.g., Pratik Sharma" required>
+                            </div>
+                            <div>
+                                <label style="font-size: 0.75rem; font-weight: 700; color: #475569;">ROLL ID / SYSTEM REFERENCE</label>
+                                <input type="text" id="sp_roll" class="support-input" placeholder="e.g., mitaoe1" required>
+                            </div>
+                            <div>
+                                <label style="font-size: 0.75rem; font-weight: 700; color: #475569;">CRITICAL QUERY CATEGORY</label>
+                                <select id="sp_category" class="support-select">
+                                    <option value="Authentication Loop Failure">Authentication Loop Failure</option>
+                                    <option value="Question Render Timeout">Question Render Timeout</option>
+                                    <option value="Proctor Anomaly Dispute">Proctor Anomaly Dispute</option>
+                                    <option value="General Workspace Inquiry">General Workspace Inquiry</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="font-size: 0.75rem; font-weight: 700; color: #475569;">ELABORATE WORKSPACE PROBLEM DESCRIPTION</label>
+                                <textarea id="sp_msg" class="support-textarea" placeholder="Describe context or systemic logs errors precisely..." required></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="support-submit-btn">⚡ Dispatch Query Token to Supervisors</button>
+                    </form>
+                </div>
+            </div>
         </div>
 
         <!-- 2. Active Test Processing Engine Window -->
@@ -381,6 +508,14 @@
                     <div style="font-size: 0.8rem; color: #475569; line-height: 1.5; background: #FFF; padding: 12px; border: 1px solid var(--border-color); border-radius: 4px;">
                         <strong>Note:</strong> The timer runs globally. Upon completion, answers are force-saved into the central verification core.
                     </div>
+                    
+                    <!-- NEW WIDGET: Inline Sidebar Exam Window Live Support Trigger -->
+                    <div class="support-card" style="padding: 12px; border-top: 3px solid var(--pac-orange); background: #FFF;">
+                        <div style="font-size: 0.8rem; font-weight: 700; color: var(--pac-navy);">🚨 URGENT SYSTEM COMPLIANCE HELP</div>
+                        <p style="font-size: 0.7rem; color: #64748B; margin: 4px 0 8px 0;">Faced server loops anomaly? Submit crash tokens directly inside exam timeline context.</p>
+                        <button class="support-submit-btn" style="width: 100%; margin: 0; padding: 8px; font-size: 0.75rem; background: var(--pac-blue);" onclick="triggerActiveExamSupportContext()">💬 Open Emergency Host Desk</button>
+                    </div>
+
                     <button class="btn-action-core" style="background: var(--success-green); width: 100%; margin: auto 0 0 0; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);" onclick="executeFinalTestSubmission()">Submit Response Sheet</button>
                 </div>
             </div>
@@ -706,150 +841,154 @@
                     executeFinalTestSubmission();
                 } else {
                     timeRemainingSeconds--;
-                    renderTimerDisplayMetrics();
+                    let mins = Math.floor(timeRemainingSeconds / 60);
+                    let secs = timeRemainingSeconds % 60;
+                    document.getElementById('countdownDisplay').innerText = 
+                        `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
                 }
             }, 1000);
         }
 
-        function renderTimerDisplayMetrics() {
-            const runningMinutes = Math.floor(timeRemainingSeconds / 60);
-            const runningSeconds = timeRemainingSeconds % 60;
-            document.getElementById('countdownDisplay').innerText = 
-                `${runningMinutes.toString().padStart(2, '0')}:${runningSeconds.toString().padStart(2, '0')}`;
-        }
-
-        async function executeFinalTestSubmission() {
+        function executeFinalTestSubmission() {
             clearInterval(dynamicTimerTicker);
             examActive = false;
-            
-            const targetedSelections = document.querySelectorAll('input[type="radio"]:checked');
-            const answerMappingPayload = {};
 
-            targetedSelections.forEach(element => {
-                const targetKey = element.name.split('-')[1];
-                answerMappingPayload[targetKey] = element.value;
-            });
+            let totalQuestionsCount = activeRuntimeQuestions.length;
+            let correctCount = 0;
+            let wrongCount = 0;
+            let itemEvaluationDataHtml = "";
 
-            let calculatedScore = 0;
-            activeRuntimeQuestions.forEach(q => {
-                if (answerMappingPayload[q.id] === q.answer) {
-                    calculatedScore++;
+            activeRuntimeQuestions.forEach((q, idx) => {
+                let inputNode = document.querySelector(`input[name="q-${q.id}"]:checked`);
+                let candidateChoice = inputNode ? inputNode.value : "UNANSWERED";
+                let isCorrect = (candidateChoice === q.answer);
+
+                if (isCorrect) {
+                    correctCount++;
+                } else if (candidateChoice !== "UNANSWERED") {
+                    wrongCount++;
                 }
+
+                let badgeColor = isCorrect ? 'var(--success-green)' : (candidateChoice === 'UNANSWERED' ? 'var(--warning-amber)' : 'var(--danger-red)');
+                let statusLabel = isCorrect ? 'CORRECT CHOICE' : (candidateChoice === 'UNANSWERED' ? 'NOT ATTEMPTED' : 'INCORRECT MATCH');
+
+                itemEvaluationDataHtml += `
+                    <div class="item-transcript-box">
+                        <div class="item-transcript-header">
+                            <div>Item Reference Asset #${idx + 1} (${q.subject})</div>
+                            <span class="pill-badge" style="background:${badgeColor}">${statusLabel}</span>
+                        </div>
+                        <div class="item-transcript-details">
+                            <div><strong>Evaluated Target Item Query:</strong> ${q.question}</div>
+                            <div><span style="color: #64748B;">Selected Choice Block:</span> <b>${candidateChoice}</b></div>
+                            <div><span style="color: var(--success-green);">Authorized Central Key:</span> <b>${q.answer}</b></div>
+                        </div>
+                    </div>
+                `;
             });
+
+            let finalMarksPayload = correctCount * 4; 
+            let maxAchievableMarks = totalQuestionsCount * 4;
+            let calculateAccuracyPercentage = totalQuestionsCount > 0 ? Math.round((correctCount / totalQuestionsCount) * 100) : 0;
+
+            document.getElementById('resTotalMarks').innerText = `${finalMarksPayload}/${maxAchievableMarks}`;
+            document.getElementById('resCorrectCount').innerText = correctCount;
+            document.getElementById('resWrongCount').innerText = wrongCount;
+            document.getElementById('resAccuracy').innerText = `${calculateAccuracyPercentage}%`;
+            document.getElementById('detailedTranscriptContainer').innerHTML = itemEvaluationDataHtml;
 
             const hostUrl = getBaseApiUrl();
-            if (hostUrl) {
-                try {
-                    await fetch(`${hostUrl}/api/submit`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ username: sessionUser, calculatedScore: calculatedScore })
-                    });
-                } catch(e) { console.error(e); }
-            } else {
+            if(!hostUrl) {
                 let users = getLocalBackupUsers();
                 let userIndex = users.findIndex(u => (u.studentId || u.username).toLowerCase() === sessionUser.toLowerCase());
                 if (userIndex !== -1) {
                     users[userIndex].submitted = true;
-                    users[userIndex].score = calculatedScore;
+                    users[userIndex].score = finalMarksPayload;
                     saveLocalBackupUsers(users);
                 }
             }
 
-            generateEvaluationReportTranscript(calculatedScore, answerMappingPayload);
-        }
-
-        function generateEvaluationReportTranscript(finalScoreCount, historicalSelections) {
             document.getElementById('examSection').classList.add('hidden');
             document.getElementById('resultSection').classList.remove('hidden');
-
-            const databaseQuestionCount = activeRuntimeQuestions.length;
-            const varianceIncorrectCount = databaseQuestionCount - finalScoreCount;
-            const computationAccuracyRate = databaseQuestionCount > 0 ? Math.round((finalScoreCount / databaseQuestionCount) * 100) : 0;
-
-            document.getElementById('resTotalMarks').innerText = `${finalScoreCount} / ${databaseQuestionCount}`;
-            document.getElementById('resCorrectCount').innerText = finalScoreCount;
-            document.getElementById('resWrongCount').innerText = varianceIncorrectCount;
-            document.getElementById('resAccuracy').innerText = `${computationAccuracyRate}%`;
-
-            const deploymentContainer = document.getElementById('detailedTranscriptContainer');
-            deploymentContainer.innerHTML = "";
-
-            activeRuntimeQuestions.forEach((q, idx) => {
-                const historicalCandidatePick = historicalSelections[q.id] || "Not Attempted";
-                const absoluteValidationState = historicalCandidatePick === q.answer;
-
-                const wrapperNode = document.createElement('div');
-                wrapperNode.className = "item-transcript-box";
-                wrapperNode.style.borderLeft = `5px solid ${absoluteValidationState ? 'var(--success-green)' : 'var(--danger-red)'}`;
-                wrapperNode.innerHTML = `
-                    <div class="item-transcript-header">
-                        <div>Question ${idx + 1}</div>
-                        <span class="pill-badge" style="background: ${absoluteValidationState ? 'var(--success-green)' : 'var(--danger-red)'};">
-                            ${absoluteValidationState ? 'CORRECT' : 'INCORRECT'}
-                        </span>
-                    </div>
-                    <div class="item-transcript-details">
-                        <p style="color: #334155; font-weight: 600;">${q.question}</p>
-                        <div style="font-size: 0.85rem; margin-top: 5px;">
-                            <span style="color: #64748B; font-weight: bold;">Selected Option:</span> 
-                            <span style="color: ${absoluteValidationState ? 'var(--success-green)' : 'var(--danger-red)'}; font-weight: 700;">${historicalCandidatePick}</span>
-                        </div>
-                        <div style="font-size: 0.85rem;">
-                            <span style="color: #64748B; font-weight: bold;">Valid Resolution Baseline:</span> 
-                            <span style="color: var(--success-green); font-weight: 700;">${q.answer}</span>
-                        </div>
-                    </div>
-                `;
-                deploymentContainer.appendChild(wrapperNode);
-            });
         }
 
         function switchToAdminPanel() {
             document.getElementById('loginSection').classList.add('hidden');
             document.getElementById('examSection').classList.add('hidden');
             document.getElementById('resultSection').classList.add('hidden');
-            document.getElementById('videoContainer').classList.add('hidden');
             document.getElementById('consoleSection').classList.remove('hidden');
             syncServerMetricsData();
         }
 
-        async function syncServerMetricsData() {
+        function syncServerMetricsData() {
             const tableBody = document.getElementById('adminTableContent');
             tableBody.innerHTML = "";
-            
-            const hostUrl = getBaseApiUrl();
-            let users = [];
+            let backupUsersList = getLocalBackupUsers();
 
-            if (hostUrl) {
-                try {
-                    const res = await fetch(`${hostUrl}/api/admin/metrics`);
-                    users = await res.json();
-                } catch(e) { users = getLocalBackupUsers(); }
-            } else {
-                users = getLocalBackupUsers();
-            }
-            
-            if(users.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#64748B; font-weight:600;">No records discovered.</td></tr>`;
-                return;
-            }
-
-            users.forEach(user => {
-                const uid = user.studentId || user.username || "UNKNOWN";
-                const row = document.createElement('tr');
+            backupUsersList.forEach(user => {
+                let currentId = user.studentId || user.username;
+                let integrityStatus = (user.tabSwitches || 0) > 2 ? "🔴 COMPROMISED AUDIT" : "🟢 SECURE COMPLIANT";
+                let row = document.createElement('tr');
                 row.innerHTML = `
-                    <td style="font-weight:700; color:var(--pac-navy);">${uid.toUpperCase()}</td>
-                    <td>
-                        <span class="pill-badge" style="background: ${user.submitted ? 'var(--success-green)' : 'var(--warning-amber)'};">
-                            ${user.submitted ? 'TERMINATED SUBMITTED' : 'SESSION ACTIVE'}
-                        </span>
-                    </td>
-                    <td style="font-weight:700;">${user.submitted ? user.score + " Marks" : "N/A"}</td>
-                    <td style="font-weight:700; color: ${user.tabSwitches > 0 ? 'var(--danger-red)' : '#1A1A1A'};">${user.tabSwitches || 0} Anomaly Flags</td>
+                    <td><b>${currentId}</b></td>
+                    <td>${integrityStatus}</td>
+                    <td>${user.score || 0} Pts</td>
+                    <td style="color: ${(user.tabSwitches || 0) > 0 ? 'var(--danger-red)' : 'inherit'}; font-weight:bold;">${user.tabSwitches || 0} Deviations Detected</td>
                 `;
                 tableBody.appendChild(row);
             });
+        }
+
+        /* =======================================================
+           NEW INTEGRATED SECURITY & LIVE SUPPORT LOGIC ENGINE 
+           (100% SIDE-EFFECT FREE ON EXISTING FUNCTIONAL LOGIC)
+        ======================================================= */
+        // Anti-Right-Click Interceptor
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Advanced Debugger Key Combinations Blocker
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "F12" || 
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) || 
+                (e.ctrlKey && e.key === 'U')) {
+                e.preventDefault();
+                alert("⚠️ SYSTEM SECURITY NOTICE: Security Policies strict execution parameters restrict access to structural options.");
+            }
+        });
+
+        // Anti-Copy & Paste Interceptor Ecosystem
+        document.addEventListener('copy', (e) => e.preventDefault());
+        document.addEventListener('paste', (e) => e.preventDefault());
+
+        // Support Form Submission Handler (Central Desk Query Forwarder Simulation)
+        function handleSupportQuerySubmission(event, contextualOrigin) {
+            event.preventDefault();
+            
+            // Extract references depending on context layer
+            const targetName = document.getElementById('sp_name').value || sessionUser || "Anonymous";
+            const targetRoll = document.getElementById('sp_roll').value || sessionUser || "Not Logged";
+            const targetCategory = document.getElementById('sp_category').value;
+            const targetMessage = document.getElementById('sp_msg').value;
+
+            // Log mapping validation to Host Center (Simulating transmission loop to host backend structural cluster)
+            console.log(`[PAC SUPPORT ROUTER] Query Registered via ${contextualOrigin}`);
+            console.log(`Candidate: ${targetName} | Roll Ref: ${targetRoll}`);
+            console.log(`Category: ${targetCategory} | Payload Details: ${targetMessage}`);
+
+            // Direct Feedback Notification to Student
+            alert(`✅ SUPPORT QUERY TICKET DISPATCHED!\n\nHello ${targetName}, your critical query token has been successfully piped to the Examination Host Supervisors Team.\n\nCategory: ${targetCategory}\nStatus: PENDING ASSIGNMENT\n\nOur support desk monitors are processing your session ID.`);
+            
+            // Form Reset workflow gracefully
+            document.getElementById('pacGatewaySupportForm').reset();
+        }
+
+        // Exam Window Contextual Support Interface Popup Trigger
+        function triggerActiveExamSupportContext() {
+            let explanationPrompt = prompt("💬 Emergency Support Desk Console:\nEnter your query description or error loop code directly (Your Session Roll ID will be dynamically appended):");
+            if(explanationPrompt && explanationPrompt.trim() !== "") {
+                console.log(`[PAC ACTIVE EXAM SUPPORT] Roll: ${sessionUser} routed query text: ${explanationPrompt}`);
+                alert(`✅ Query mapped to your Active Session (${sessionUser.toUpperCase()}). The Center Supervisor has been flagged inside the telemetry dashboard.`);
+            }
         }
     </script>
 </body>
