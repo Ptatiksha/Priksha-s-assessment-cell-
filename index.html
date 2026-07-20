@@ -225,8 +225,9 @@
             border-radius: 6px;
             margin-bottom: 20px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+            position: relative;
         }
-        .q-meta-title { font-size: 1rem; font-weight: 700; color: var(--pac-navy); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed var(--border-color); }
+        .q-meta-title { font-size: 1rem; font-weight: 700; color: var(--pac-navy); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed var(--border-color); display: flex; justify-content: space-between; align-items: center; }
         .option-node-row {
             display: flex;
             align-items: center;
@@ -293,8 +294,7 @@
         .bypass-toggle { background: var(--pac-navy); border: none; color: #FFF; padding: 8px 16px; border-radius: 4px; font-size: 0.8rem; font-weight: 700; cursor: pointer; display: none; margin-bottom: 12px; margin-left: auto; }
 
         /* ==========================================
-           NEW INTERACTIVE ADD-ONS & STYLING ENGINE 
-           (PRESERVES ALL EXISTING STYLES)
+           ADVANCED PROCTORING & SUPPORT UNIQUE ENGINE
         ========================================== */
         .secure-context-restricted {
             user-select: none !important;
@@ -325,60 +325,87 @@
         @media (max-width: 600px) {
             .support-grid-fields { grid-template-columns: 1fr; }
         }
-        .support-input {
-            width: 100%;
-            padding: 10px 14px;
-            border: 1px solid #CBD5E1;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            margin-top: 4px;
+        .support-input, .support-select, .support-textarea {
+            width: 100%; padding: 10px 14px; border: 1px solid #CBD5E1; border-radius: 4px; font-size: 0.9rem; margin-top: 4px; background: #FFF;
         }
-        .support-textarea {
-            width: 100%;
-            padding: 10px 14px;
-            border: 1px solid #CBD5E1;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            height: 80px;
-            resize: vertical;
-            margin-top: 4px;
-        }
-        .support-select {
-            width: 100%;
-            padding: 10px 14px;
-            border: 1px solid #CBD5E1;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            background: #FFF;
-            margin-top: 4px;
-        }
+        .support-textarea { height: 80px; resize: vertical; }
         .support-submit-btn {
-            background: var(--pac-navy);
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: background 0.2s;
-            margin-top: 12px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            background: var(--pac-navy); color: white; padding: 10px 20px; border: none; border-radius: 4px; font-weight: 700; font-size: 0.85rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 12px; display: inline-flex; align-items: center; gap: 6px;
         }
         .support-submit-btn:hover { background: var(--pac-blue); }
         .sys-badge-alert {
-            display: inline-block;
-            padding: 3px 8px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            border-radius: 3px;
-            margin-left: 8px;
-            background: #FEF3C7;
-            color: #D97706;
+            display: inline-block; padding: 3px 8px; font-size: 0.7rem; font-weight: bold; border-radius: 3px; margin-left: 8px; background: #FEF3C7; color: #D97706;
+        }
+        
+        /* Unique: High-Tech Question Navigation Matrix */
+        .nav-grid-container {
+            background: #FFF; border: 1px solid var(--border-color); border-radius: 6px; padding: 15px; margin-top: 10px;
+        }
+        .nav-grid-title { font-size: 0.8rem; font-weight: 700; color: var(--pac-navy); margin-bottom: 10px; text-transform: uppercase; }
+        .nav-nodes-flex { display: flex; gap: 8px; flex-wrap: wrap; }
+        .nav-node-btn {
+            width: 36px; height: 36px; border-radius: 4px; border: 1px solid #CBD5E1; background: #F1F5F9; color: #475569; font-weight: bold; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+        }
+        .nav-node-btn.attempted { background: var(--success-green) !important; color: #FFF !important; border-color: var(--success-green) !important; }
+        .nav-node-btn.unattempted { background: var(--danger-red) !important; color: #FFF !important; border-color: var(--danger-red) !important; }
+
+        /* Unique: Native Audio Reader Styling */
+        .audio-reader-trigger {
+            background: #EFF6FF; border: 1px solid #BFDBFE; color: var(--pac-blue); font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
+        }
+        .audio-reader-trigger:hover { background: #DBEAFE; }
+
+        /* Unique: Dynamic Live Proctor Status Card */
+        .proctor-status-indicator {
+            background: #ECFDF5; border: 1px solid #A7F3D0; color: #065F46; padding: 10px 14px; border-radius: 4px; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; gap: 8px; margin-bottom: 10px; transition: all 0.3s;
+        }
+        .proctor-status-indicator.breached { background: #FEF2F2; border-color: #FCA5A5; color: #991B1B; animation: pulse-alert 2s infinite; }
+        @keyframes pulse-alert {
+            0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; }
+        }
+
+        /* FLOATING SUPPORT LIVE CHAT DESIGN MODULE */
+        .pac-chat-floating-trigger {
+            position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px;
+            background: var(--pac-blue); color: #FFF; border-radius: 50%;
+            box-shadow: 0 4px 16px rgba(11,74,143,0.35); display: flex; align-items: center;
+            justify-content: center; font-size: 1.6rem; cursor: pointer; z-index: 9999;
+            transition: transform 0.2s;
+        }
+        .pac-chat-floating-trigger:hover { transform: scale(1.08); background: var(--pac-navy); }
+        
+        .pac-chat-container-window {
+            position: fixed; bottom: 95px; right: 25px; width: 340px; height: 440px;
+            background: #FFF; border: 1px solid var(--border-color); border-radius: 10px;
+            box-shadow: 0 12px 36px rgba(0,0,0,0.15); display: flex; flex-direction: column;
+            overflow: hidden; z-index: 9999; transition: all 0.25s ease-in-out;
+        }
+        .chat-header-bar {
+            background: var(--pac-navy); color: white; padding: 14px 18px;
+            font-weight: 700; font-size: 0.9rem; display: flex; justify-content: space-between; align-items: center;
+        }
+        .chat-logs-stream {
+            flex: 1; padding: 15px; overflow-y: auto; background: #F8FAFC;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .chat-bubble-node {
+            max-width: 80%; padding: 10px 12px; border-radius: 6px; font-size: 0.85rem; line-height: 1.4;
+        }
+        .chat-bubble-node.agent-side {
+            background: #E2E8F0; color: #1E293B; align-self: flex-start; border-bottom-left-radius: 0;
+        }
+        .chat-bubble-node.student-side {
+            background: var(--pac-blue); color: white; align-self: flex-end; border-bottom-right-radius: 0;
+        }
+        .chat-input-row {
+            display: flex; border-top: 1px solid var(--border-color); background: #FFF; padding: 10px; gap: 8px;
+        }
+        .chat-txt-box {
+            flex: 1; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 4px; font-size: 0.85rem; outline: none;
+        }
+        .chat-send-btn {
+            background: var(--pac-orange); color: #FFF; border: none; padding: 0 14px;
+            font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
         }
     </style>
 </head>
@@ -386,7 +413,7 @@
 
     <div class="gov-banner">
         <div>PRIKSHA'S ASSESSMENT CELL • CENTRAL SECURITY WORKSPACE</div>
-        <div>परीक्षा असाइनメント cell (PAC)</div>
+        <div>परीक्षा असाइनमेंट cell (PAC)</div>
     </div>
 
     <header class="pac-header">
@@ -404,7 +431,7 @@
     </div>
 
     <div id="videoContainer" class="video-bg-container">
-        <iframe src="https://www.youtube.com/embed/FsIenS7u9N4?autoplay=1&mute=1&loop=1&playlist=FsIenS7u9N4&controls=0&showinfo=0&rel=0&modestbranding=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+        <iframe src="v" frameborder="0" allow="autoplay; encrypted-media"></iframe>
     </div>
 
     <div class="portal-main">
@@ -445,7 +472,7 @@
                 </div>
             </div>
 
-            <!-- NEW WIDGET: Candidate Support & Query Console (Gateway View) -->
+            <!-- Candidate Support & Query Console (Gateway View) -->
             <div class="gateway-support-wrapper" id="gatewaySupportSection">
                 <div class="support-card">
                     <div style="font-weight: 800; font-size: 1.05rem; color: var(--pac-navy); display: flex; align-items: center; justify-content: space-between;">
@@ -480,6 +507,11 @@
                         </div>
                         <button type="submit" class="support-submit-btn">⚡ Dispatch Query Token to Supervisors</button>
                     </form>
+
+                    <!-- Live Pipeline Activity Tracker -->
+                    <div id="liveSupportPipelineTracker" style="margin-top: 12px; font-size: 0.75rem; color: #64748B; background: #F8FAFC; padding: 8px; border-radius: 4px; border: 1px dashed #CBD5E1;">
+                        🟢 <b>System Status:</b> Support pipes clear. Ready to receive systemic inquiries.
+                    </div>
                 </div>
             </div>
         </div>
@@ -498,6 +530,12 @@
                 <div id="questionsContainer"></div>
 
                 <div class="sidebar-panel">
+                    
+                    <!-- Dynamic Visual Proctor Status Card -->
+                    <div id="proctorVisualIndicator" class="proctor-status-indicator">
+                        🛡️ STATUS: INTEGRITY SECURE
+                    </div>
+
                     <div class="candidate-meta-card">
                         <div class="profile-avatar">PAC</div>
                         <div>
@@ -505,11 +543,18 @@
                             <div style="font-size: 0.75rem; color:#64748B; font-weight: 600;">Paper ID: fullstack_2026</div>
                         </div>
                     </div>
+
+                    <!-- High-Tech Questions Grid Palette Card -->
+                    <div class="nav-grid-container">
+                        <div class="nav-grid-title">📋 Item Palette Status</div>
+                        <div id="pacQuestionsNavGrid" class="nav-nodes-flex"></div>
+                    </div>
+
                     <div style="font-size: 0.8rem; color: #475569; line-height: 1.5; background: #FFF; padding: 12px; border: 1px solid var(--border-color); border-radius: 4px;">
                         <strong>Note:</strong> The timer runs globally. Upon completion, answers are force-saved into the central verification core.
                     </div>
                     
-                    <!-- NEW WIDGET: Inline Sidebar Exam Window Live Support Trigger -->
+                    <!-- Inline Sidebar Exam Window Live Support Trigger -->
                     <div class="support-card" style="padding: 12px; border-top: 3px solid var(--pac-orange); background: #FFF;">
                         <div style="font-size: 0.8rem; font-weight: 700; color: var(--pac-navy);">🚨 URGENT SYSTEM COMPLIANCE HELP</div>
                         <p style="font-size: 0.7rem; color: #64748B; margin: 4px 0 8px 0;">Faced server loops anomaly? Submit crash tokens directly inside exam timeline context.</p>
@@ -548,6 +593,11 @@
                         </div>
                     </div>
 
+                    <!-- Unique New Action Layout Area for Downloading Response Sheets -->
+                    <div style="display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap;">
+                        <button class="btn-action-core" style="margin:0; background: var(--pac-blue); width: auto; padding: 12px 24px;" onclick="downloadCandidateResponseSheetText()">📥 Download Official Response Sheet (.txt)</button>
+                    </div>
+
                     <div style="font-weight: 700; font-size: 1.1rem; color: var(--pac-navy); margin-bottom: 16px; border-bottom: 2px solid var(--pac-light); padding-bottom: 6px;">
                         Question-by-Question Item Evaluation Analysis
                     </div>
@@ -584,6 +634,22 @@
 
     </div>
 
+    <!-- FLOATING SUPPORT LIVE CHAT WIDGET HTML -->
+    <div class="pac-chat-floating-trigger" onclick="toggleSupportChatBoxWindow()">💬</div>
+    <div class="pac-chat-container-window hidden" id="pacSupportChatBox">
+        <div class="chat-header-bar">
+            <div>👨‍💻 PAC Support Desk (Live)</div>
+            <div style="cursor: pointer; font-size: 1.1rem;" onclick="toggleSupportChatBoxWindow()">×</div>
+        </div>
+        <div class="chat-logs-stream" id="chatLogsStream">
+            <div class="chat-bubble-node agent-side">Welcome to PAC Center Control. How can we assist your terminal session setup?</div>
+        </div>
+        <div class="chat-input-row">
+            <input type="text" class="chat-txt-box" id="chatStudentInput" placeholder="Type query message here..." onkeydown="if(event.key === 'Enter') dispatchStudentChatMessage()">
+            <button class="chat-send-btn" onclick="dispatchStudentChatMessage()">Send</button>
+        </div>
+    </div>
+
     <script>
         let sessionUser = "";
         let examActive = false;
@@ -591,8 +657,8 @@
         let timeRemainingSeconds = 600; 
         let dynamicTimerTicker = null;
         let activeRuntimeQuestions = []; 
+        let globalTabSwitchesCount = 0; // Tracking anomalies globally for download reference mapping
 
-        // Environment Check Strategy (Determines Server vs Serverless context)
         const getBaseApiUrl = () => {
             return (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") ? 'http://localhost:3000' : null;
         };
@@ -608,7 +674,6 @@
             return newArray;
         }
 
-        // Local Fallback Randomization Engine for Serverless Deployments (GitHub)
         function generateLocalDynamicQuestions() {
             const valA1 = Math.floor(Math.random() * 4) + 2; 
             const valB1 = Math.floor(Math.random() * 3) + 2; 
@@ -670,9 +735,11 @@
         window.addEventListener('blur', async () => {
             if (examActive && sessionUser !== "") {
                 const hostUrl = getBaseApiUrl();
+                let anomaliesCount = 1;
+                globalTabSwitchesCount++;
                 if (hostUrl) {
                     try {
-                        await fetch(`${hostUrl}/api/anomaly`, {
+                        let res = await fetch(`${hostUrl}/api/anomaly`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ username: sessionUser })
@@ -683,9 +750,17 @@
                     let userIndex = users.findIndex(u => (u.studentId || u.username).toLowerCase() === sessionUser.toLowerCase());
                     if (userIndex !== -1) {
                         users[userIndex].tabSwitches = (users[userIndex].tabSwitches || 0) + 1;
+                        anomaliesCount = users[userIndex].tabSwitches;
                         saveLocalBackupUsers(users);
                     }
                 }
+                
+                const indicatorNode = document.getElementById('proctorVisualIndicator');
+                if(indicatorNode) {
+                    indicatorNode.className = "proctor-status-indicator breached";
+                    indicatorNode.innerText = `⚠️ WARNING: ${anomaliesCount} ANOMALIES LOGGED`;
+                }
+
                 alert('⚠️ SECURE ENGINE WARNING: Cross-window tab manipulation event transmitted to infrastructure logs.');
             }
         });
@@ -799,6 +874,7 @@
             document.getElementById('examSection').classList.remove('hidden');
             document.getElementById('sideUserLabel').innerText = sessionUser.toUpperCase();
             examActive = true;
+            globalTabSwitchesCount = 0;
 
             startCountdownEngine();
 
@@ -817,20 +893,36 @@
             const targetContainer = document.getElementById('questionsContainer');
             targetContainer.innerHTML = "";
 
+            const paletteGrid = document.getElementById('pacQuestionsNavGrid');
+            paletteGrid.innerHTML = "";
+
             activeRuntimeQuestions.forEach((q, idx) => {
                 const block = document.createElement('div');
                 block.className = "question-stream-card";
+                block.id = `q-block-wrapper-${idx}`;
                 block.innerHTML = `
-                    <div class="q-meta-title">${q.subject || 'DYNAMIC ASSIGNMENT'} • Item No. ${idx + 1}</div>
+                    <div class="q-meta-title">
+                        <div>${q.subject || 'DYNAMIC ASSIGNMENT'} • Item No. ${idx + 1}</div>
+                        <button class="audio-reader-trigger" onclick="readQuestionOutLoud(this, '${escapeQuotes(q.question)}')">🔊 Read Item</button>
+                    </div>
                     <p style="font-size: 1.05rem; font-weight: 600; margin-bottom: 16px; color:#334155;">${q.question}</p>
                     ${q.options.map(opt => `
                         <label class="option-node-row">
-                            <input type="radio" name="q-${q.id}" value="${opt}">
+                            <input type="radio" name="q-${q.id}" value="${opt}" onchange="updateQuestionPaletteStatus(${idx})">
                             <span>${opt}</span>
                         </label>
                     `).join('')}
                 `;
                 targetContainer.appendChild(block);
+
+                const nodeBtn = document.createElement('button');
+                nodeBtn.className = "nav-node-btn unattempted";
+                nodeBtn.id = `nav-node-item-${idx}`;
+                nodeBtn.innerText = idx + 1;
+                nodeBtn.onclick = () => {
+                    document.getElementById(`q-block-wrapper-${idx}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+                };
+                paletteGrid.appendChild(nodeBtn);
             });
         }
 
@@ -912,6 +1004,54 @@
             document.getElementById('resultSection').classList.remove('hidden');
         }
 
+        /* Unique: System Response Generator & Downloader Node */
+        function downloadCandidateResponseSheetText() {
+            let totalQuestionsCount = activeRuntimeQuestions.length;
+            let correctCount = parseInt(document.getElementById('resCorrectCount').innerText) || 0;
+            let wrongCount = parseInt(document.getElementById('resWrongCount').innerText) || 0;
+            let scoreLabel = document.getElementById('resTotalMarks').innerText;
+            let accuracyPercent = document.getElementById('resAccuracy').innerText;
+            
+            let fileContentString = `=========================================================\n`;
+            fileContentString += `         PRIKSHA'S ASSESSMENT CELL OFFICIAL TRANSCRIPT    \n`;
+            fileContentString += `=========================================================\n`;
+            fileContentString += `Candidate Roll ID : ${sessionUser.toUpperCase()}\n`;
+            fileContentString += `Exam Status       : SUCCESSFULLY SUBMITTED\n`;
+            fileContentString += `Calculated Score  : ${scoreLabel} Points\n`;
+            fileContentString += `Correct Inquiries : ${correctCount}\n`;
+            fileContentString += `Wrong Selections  : ${wrongCount}\n`;
+            fileContentString += `Accuracy Footprint: ${accuracyPercent}\n`;
+            fileContentString += `Proctor Violations: ${globalTabSwitchesCount} Tab Deviations\n`;
+            fileContentString += `=========================================================\n\n`;
+            fileContentString += `ITEM ANALYSIS DETAILS:\n`;
+            fileContentString += `---------------------------------------------------------\n`;
+
+            activeRuntimeQuestions.forEach((q, idx) => {
+                let inputNode = document.querySelector(`input[name="q-${q.id}"]:checked`);
+                let choice = inputNode ? inputNode.value : "UNANSWERED";
+                let status = (choice === q.answer) ? "CORRECT" : (choice === "UNANSWERED" ? "NOT ATTEMPTED" : "INCORRECT");
+                
+                fileContentString += `Question #${idx + 1} [${q.subject}]:\n`;
+                fileContentString += `Query Text   : ${q.question}\n`;
+                fileContentString += `Your Choice  : ${choice}\n`;
+                fileContentString += `Correct Key  : ${q.answer}\n`;
+                fileContentString += `Verdict Status: ${status}\n`;
+                fileContentString += `---------------------------------------------------------\n`;
+            });
+
+            fileContentString += `\n[End of Central Verification Output Data - PAC Engine]`;
+
+            // Blob download bridge allocation
+            const textBlobElement = new Blob([fileContentString], { type: 'text/plain' });
+            const temporaryAnchorNode = document.createElement('a');
+            temporaryAnchorNode.download = `PAC_Response_Sheet_${sessionUser}.txt`;
+            temporaryAnchorNode.href = window.URL.createObjectURL(textBlobElement);
+            temporaryAnchorNode.style.display = 'none';
+            document.body.appendChild(temporaryAnchorNode);
+            temporaryAnchorNode.click();
+            document.body.removeChild(temporaryAnchorNode);
+        }
+
         function switchToAdminPanel() {
             document.getElementById('loginSection').classList.add('hidden');
             document.getElementById('examSection').classList.add('hidden');
@@ -939,57 +1079,108 @@
             });
         }
 
-        /* =======================================================
-           NEW INTEGRATED SECURITY & LIVE SUPPORT LOGIC ENGINE 
-           (100% SIDE-EFFECT FREE ON EXISTING FUNCTIONAL LOGIC)
-        ======================================================= */
-        // Anti-Right-Click Interceptor
+        /* UNIQUE SECURITY HANDLERS & CHAT DESK INTERACTION SYSTEMS */
         document.addEventListener('contextmenu', event => event.preventDefault());
 
-        // Advanced Debugger Key Combinations Blocker
         document.addEventListener('keydown', function(e) {
             if (e.key === "F12" || 
                 (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) || 
                 (e.ctrlKey && e.key === 'U')) {
                 e.preventDefault();
-                alert("⚠️ SYSTEM SECURITY NOTICE: Security Policies strict execution parameters restrict access to structural options.");
+                alert("⚠️ SYSTEM SECURITY NOTICE: Security Policies restrict developer options execution.");
             }
         });
 
-        // Anti-Copy & Paste Interceptor Ecosystem
         document.addEventListener('copy', (e) => e.preventDefault());
         document.addEventListener('paste', (e) => e.preventDefault());
 
-        // Support Form Submission Handler (Central Desk Query Forwarder Simulation)
         function handleSupportQuerySubmission(event, contextualOrigin) {
             event.preventDefault();
-            
-            // Extract references depending on context layer
             const targetName = document.getElementById('sp_name').value || sessionUser || "Anonymous";
-            const targetRoll = document.getElementById('sp_roll').value || sessionUser || "Not Logged";
             const targetCategory = document.getElementById('sp_category').value;
-            const targetMessage = document.getElementById('sp_msg').value;
 
-            // Log mapping validation to Host Center (Simulating transmission loop to host backend structural cluster)
-            console.log(`[PAC SUPPORT ROUTER] Query Registered via ${contextualOrigin}`);
-            console.log(`Candidate: ${targetName} | Roll Ref: ${targetRoll}`);
-            console.log(`Category: ${targetCategory} | Payload Details: ${targetMessage}`);
+            const pipelineTracker = document.getElementById('liveSupportPipelineTracker');
+            if(pipelineTracker) {
+                pipelineTracker.innerHTML = `⏳ <b>Ticket #${Math.floor(Math.random() * 9000) + 1000}:</b> Connecting with Proctors...`;
+                setTimeout(() => {
+                    pipelineTracker.innerHTML = `⚡ <b>Broadcast Status:</b> Query Token successfully piped to Control Center.`;
+                }, 2000);
+            }
 
-            // Direct Feedback Notification to Student
-            alert(`✅ SUPPORT QUERY TICKET DISPATCHED!\n\nHello ${targetName}, your critical query token has been successfully piped to the Examination Host Supervisors Team.\n\nCategory: ${targetCategory}\nStatus: PENDING ASSIGNMENT\n\nOur support desk monitors are processing your session ID.`);
-            
-            // Form Reset workflow gracefully
+            alert(`✅ SUPPORT QUERY TICKET DISPATCHED!\n\nHello ${targetName}, your query has been successfully piped to the Examination Host Supervisors Team.\n\nCategory: ${targetCategory}`);
             document.getElementById('pacGatewaySupportForm').reset();
         }
 
-        // Exam Window Contextual Support Interface Popup Trigger
         function triggerActiveExamSupportContext() {
-            let explanationPrompt = prompt("💬 Emergency Support Desk Console:\nEnter your query description or error loop code directly (Your Session Roll ID will be dynamically appended):");
+            let explanationPrompt = prompt("💬 Emergency Support Desk Console:\nEnter your query description:");
             if(explanationPrompt && explanationPrompt.trim() !== "") {
-                console.log(`[PAC ACTIVE EXAM SUPPORT] Roll: ${sessionUser} routed query text: ${explanationPrompt}`);
-                alert(`✅ Query mapped to your Active Session (${sessionUser.toUpperCase()}). The Center Supervisor has been flagged inside the telemetry dashboard.`);
+                alert(`✅ Query mapped to your Active Session (${sessionUser.toUpperCase()}). Center Supervisor has been flagged.`);
             }
+        }
+
+        function updateQuestionPaletteStatus(idx) {
+            const nodeBtn = document.getElementById(`nav-node-item-${idx}`);
+            if(nodeBtn) {
+                nodeBtn.className = "nav-node-btn attempted";
+            }
+        }
+
+        function readQuestionOutLoud(buttonEl, textToSpeak) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                let speechInstance = new SpeechSynthesisUtterance(textToSpeak);
+                speechInstance.rate = 0.95;
+                speechInstance.lang = 'en-US';
+                
+                buttonEl.innerText = "⏳ Speaking...";
+                speechInstance.onend = () => { buttonEl.innerText = "🔊 Read Item"; };
+                speechInstance.onerror = () => { buttonEl.innerText = "🔊 Read Item"; };
+                
+                window.speechSynthesis.speak(speechInstance);
+            } else {
+                alert("❌ Text-to-speech engine is not supported inside this browser architecture.");
+            }
+        }
+
+        function escapeQuotes(str) {
+            return str.replace(/['"]/g, '\\$&');
+        }
+
+        function toggleSupportChatBoxWindow() {
+            const chatWindow = document.getElementById('pacSupportChatBox');
+            chatWindow.classList.toggle('hidden');
+        }
+
+        function dispatchStudentChatMessage() {
+            const inputField = document.getElementById('chatStudentInput');
+            const streamContainer = document.getElementById('chatLogsStream');
+            const rawText = inputField.value.trim();
+
+            if(rawText === "") return;
+
+            const studentBubble = document.createElement('div');
+            studentBubble.className = "chat-bubble-node student-side";
+            studentBubble.innerText = rawText;
+            streamContainer.appendChild(studentBubble);
+            inputField.value = "";
+            streamContainer.scrollTop = streamContainer.scrollHeight;
+
+            setTimeout(() => {
+                const agentBubble = document.createElement('div');
+                agentBubble.className = "chat-bubble-node agent-side";
+                
+                if(rawText.toLowerCase().includes("login") || rawText.toLowerCase().includes("password")) {
+                    agentBubble.innerText = "🔒 SYSTEM ADVISORY: Make sure to use your unique authorized System Roll ID reference mapping. If registration loops timeout, please clear local caches.";
+                } else if(rawText.toLowerCase().includes("cheat") || rawText.toLowerCase().includes("tab")) {
+                    agentBubble.innerText = "⚠️ PROCTOR LOCK WARNING: Structural security loops track tab-switching deviations instantly. Maintain terminal console focus parameters.";
+                } else {
+                    agentBubble.innerText = "📡 CONTROL DESK MESSAGE: Your query loop has been intercepted by our active room supervisor. We are verification-checking your active session bandwidth. Please remain secure inside your workspace window.";
+                }
+                
+                streamContainer.appendChild(agentBubble);
+                streamContainer.scrollTop = streamContainer.scrollHeight;
+            }, 1200);
         }
     </script>
 </body>
-</html>
+</html
